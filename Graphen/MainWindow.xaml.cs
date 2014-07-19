@@ -10,7 +10,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Graphen
@@ -23,6 +22,14 @@ namespace Graphen
         public MainWindow()
         {
             InitializeComponent();
+            this.Hide();
+            MenuWindow menu = new MenuWindow();
+            menu.Show();
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
