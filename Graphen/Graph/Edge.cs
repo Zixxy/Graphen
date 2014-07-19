@@ -11,12 +11,11 @@ namespace Graphen.Graph
         public Vertex First { get; private set; }
         public Vertex Second { get; private set; }
         public bool Directed { get; private set; }
-
-        public Edge(Vertex first, Vertex second, bool directed)
+        
+        public Edge(Vertex first, Vertex second)
         {
             First = first;
             Second = second;
-            Directed = directed;
         }
 
         public Vertex GetDestination(Vertex v)
@@ -46,14 +45,13 @@ namespace Graphen.Graph
 
         public override int GetHashCode()
         {
-            return (First.GetHashCode() * 31 + Second.GetHashCode()) * 31 + (Directed ? 1 : 0);
+            return (First.GetHashCode() * 31 + Second.GetHashCode()) * 31;
         }
 
         public override string ToString()
         {
             String result = "Edge: ";
             result += First.Label;
-            result += Directed ? " --> " : " -- ";
             result += Second.Label;
             return result;
         }

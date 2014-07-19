@@ -11,7 +11,7 @@ namespace Graphen.Graph
         //Helps to give default names for edges
         private static ulong defaultVertexID = 0;
 
-        private ulong vertexID;
+        private readonly ulong vertexID;
         private ICollection<Edge> adjacentEdges;
 
         public String Label { get; private set; }
@@ -70,34 +70,14 @@ namespace Graphen.Graph
             }
         }
 
-        //TODO Indexer at vertices or edges?
-        //public Edge this[int index]
-        //{
-        //    get
-        //    {
-        //        if (index < 0 || adjacentEdges.Count <= index)
-        //        {
-        //            throw new ArgumentOutOfRangeException();
-        //        }
-
-        //        return adjacentEdges.ElementAt(index);
-        //    }
-        //}
-
         public Vertex this[int index]
         {
             get
             {
-                if (index < 0 || adjacentEdges.Count <= index)
-                {
-                    throw new ArgumentOutOfRangeException();
-                }
-
                 return adjacentEdges.ElementAt(index).GetDestination(this);
             }
         }
 
-        //TODO multiedges
         internal bool AddEdge(Edge e)
         {
             if (e.First != this && e.Second != this)
@@ -133,7 +113,7 @@ namespace Graphen.Graph
         {
             if (e.First != this && e.Second != this)
             {
-                throw new ArgumentException();
+                throw new ArgumentException(e.ToString() + " is not adjacent to " + ToString());
             }
 
             return adjacentEdges.Remove(e);
@@ -144,7 +124,6 @@ namespace Graphen.Graph
             adjacentEdges.Clear();
         }
 
-        //TODO Consider what to do with in and out degree
         public int GetDegree()
         {
             return adjacentEdges.Count;

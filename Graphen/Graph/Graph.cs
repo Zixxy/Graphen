@@ -21,10 +21,6 @@ namespace Graphen.Graph
         {
             get
             {
-                if (index < 0 || index >= vertices.Count)
-                {
-                    throw new ArgumentOutOfRangeException();
-                }
                 return vertices.ElementAt(index);
             }
         }
@@ -62,14 +58,11 @@ namespace Graphen.Graph
             vertices.Add(new Vertex());
         }
 
-        public void AddEdge(Vertex v, Vertex g, bool directed)
+        public void AddEdge(Vertex v, Vertex g)
         {
-            Edge edge = new Edge(v, g, directed);
+            Edge edge = new Edge(v, g);
             v.AddEdge(edge);
-            if (!directed)
-            {
-                g.AddEdge(edge);
-            }
+            g.AddEdge(edge);
         }
 
         public void RemoveEdge(Edge e)
@@ -100,9 +93,10 @@ namespace Graphen.Graph
 
         public void RemoveAllEdges()
         {
-            foreach (Edge e in edges)
+            edges.Clear();
+            foreach (Vertex v in vertices)
             {
-                RemoveEdge(e);
+                v.RemoveAllEdges();
             }
         }
 
