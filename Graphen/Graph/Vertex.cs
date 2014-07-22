@@ -16,28 +16,28 @@ namespace Graphen.Graph
 
         public String Label { get; private set; }
 
-        internal Vertex()
+        public Vertex()
         {
             vertexID = ++defaultVertexID;
             Label = vertexID.ToString();
             adjacentEdges = new List<Edge>();
         }
 
-        internal Vertex(String label)
+        public Vertex(String label)
         {
             vertexID = ++defaultVertexID;
             Label = label;
             adjacentEdges = new List<Edge>();
         }
 
-        internal Vertex(List<Edge> adjacentEdges)
+        public Vertex(List<Edge> adjacentEdges)
         {
             vertexID = ++defaultVertexID;
             Label = vertexID.ToString();
             this.adjacentEdges = adjacentEdges;
         }
 
-        internal Vertex(String label, List<Edge> adjacentEdges)
+        public Vertex(String label, List<Edge> adjacentEdges)
         {
             vertexID = ++defaultVertexID;
             Label = label;
@@ -61,10 +61,6 @@ namespace Graphen.Graph
             {
                 foreach (Edge e in adjacentEdges)
                 {
-                    if (e.Directed && e.Second == this)
-                    {
-                        continue;
-                    }
                     yield return e.GetDestination(this);
                 }
             }

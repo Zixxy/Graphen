@@ -10,7 +10,6 @@ namespace Graphen.Graph
     {
         public Vertex First { get; private set; }
         public Vertex Second { get; private set; }
-        public bool Directed { get; private set; }
         
         public Edge(Vertex first, Vertex second)
         {
@@ -30,7 +29,7 @@ namespace Graphen.Graph
                 return false;
             }
             Edge edge = (Edge)obj;
-            return First == edge.First && Second == edge.Second && Directed == edge.Directed;
+            return First == edge.First && Second == edge.Second;
         }
 
         public static bool operator ==(Edge e, Edge r)

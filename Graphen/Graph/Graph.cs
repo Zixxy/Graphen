@@ -25,7 +25,7 @@ namespace Graphen.Graph
             }
         }
 
-        IEnumerable<Vertex> Vertices
+        public IEnumerable<Vertex> Vertices
         {
             get
             {
@@ -36,7 +36,7 @@ namespace Graphen.Graph
             }
         }
 
-        IEnumerable<Edge> Edges
+        public IEnumerable<Edge> Edges
         {
             get
             {
@@ -52,7 +52,6 @@ namespace Graphen.Graph
             vertices.Add(new Vertex(label));
         }
 
-        //TODO WTF? :D
         public void AddVertex()
         {
             vertices.Add(new Vertex());
