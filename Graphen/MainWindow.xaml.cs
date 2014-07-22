@@ -60,7 +60,7 @@ namespace Graphen
                             { 
                                 Color = Color.FromArgb(255, 0, 150, 0) 
                             },
-                            Margin = new Thickness(pos.X, pos.Y, 0, 0),
+                            Margin = new Thickness(pos.X - 10, pos.Y - 10, 0, 0),
                         };
                         ellipse.MouseDown += (object a, MouseButtonEventArgs b) =>  
                         {
