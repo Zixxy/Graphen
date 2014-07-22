@@ -3,11 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Graphen" Height="412.971" Width="672.803">
     <Grid Cursor="Hand">
-        <Menu HorizontalAlignment="Left" Height="382" VerticalAlignment="Bottom" Width="75">
-            <MenuItem x:Name="Draw" Header="Add Vertex" Height="29" Width="75" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <MenuItem Header="Add Edge" Height="29" Width="75"/>
+        <Menu HorizontalAlignment="Left" Height="354" VerticalAlignment="Bottom" Width="75" ClipToBounds="True">
+            <MenuItem x:Name="Draw" Header="Add Vertex" Height="29" Width="75" HorizontalAlignment="Center" VerticalAlignment="Center" Click="PickCircleTool"/>
+            <MenuItem Header="Add Edge" Height="29" Width="75" Click="PickEdgeTool"/>
             <MenuItem Header="Color" Height="29" Width="75"/>
             <MenuItem Header="Validate" Height="29" Width="75"/>
         </Menu>
+        <Canvas x:Name="paintSurface" Background="White" HorizontalAlignment="Left" Height="353" Margin="75,28,0,0" VerticalAlignment="Top" Width="590" Cursor="Hand" MouseLeftButtonDown="DrawElement"/>
     </Grid>
 </Window>
