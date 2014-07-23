@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
+# Visual Studio Express 2013 for Windows Desktop
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graphen", "Graphen\Graphen.csproj", "{48493297-43D0-4F09-B6CC-F37F73A0B2E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestGraphen", "UnitTestGraphen\UnitTestGraphen.csproj", "{59E50A23-96A7-4EA7-A9FC-491CFD0EDD21}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{48493297-43D0-4F09-B6CC-F37F73A0B2E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48493297-43D0-4F09-B6CC-F37F73A0B2E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48493297-43D0-4F09-B6CC-F37F73A0B2E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59E50A23-96A7-4EA7-A9FC-491CFD0EDD21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59E50A23-96A7-4EA7-A9FC-491CFD0EDD21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59E50A23-96A7-4EA7-A9FC-491CFD0EDD21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59E50A23-96A7-4EA7-A9FC-491CFD0EDD21}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -19,7 +19,7 @@ namespace Graphen
     /// </summary>
     public partial class MainWindow : Window
     {
-        private enum DrawingTool { DrawCircle, DrawEdge, SetColor, Validate }
+        private enum DrawingTool { DrawVertex, DrawEdge, SetColor, Validate }
         private DrawingTool actualTool;
         private Ellipse firstEllipse;
         private Ellipse secondEllipse;
@@ -35,7 +35,7 @@ namespace Graphen
 
         private void PickCircleTool(object sender, RoutedEventArgs e)
         {
-            actualTool = DrawingTool.DrawCircle;
+            actualTool = DrawingTool.DrawVertex;
         }
         private void PickEdgeTool(object sender, RoutedEventArgs e)
         {
@@ -43,10 +43,10 @@ namespace Graphen
         }
         private void DrawElement(object sender, MouseButtonEventArgs e)
         {
-            System.Windows.Point pos = Mouse.GetPosition(paintSurface);// System.Windows.Forms.Control.MousePosition;
+            System.Windows.Point position = Mouse.GetPosition(paintSurface);// System.Windows.Forms.Control.MousePosition;
             switch (actualTool)
             {
-                case DrawingTool.DrawCircle:
+                case DrawingTool.DrawVertex:
                     {
                         /*TODO
                          * New vertex now.
@@ -60,7 +60,7 @@ namespace Graphen
                             { 
                                 Color = Color.FromArgb(255, 0, 150, 0) 
                             },
-                            Margin = new Thickness(pos.X - 10, pos.Y - 10, 0, 0),
+                            Margin = new Thickness(position.X - 10, position.Y - 10, 0, 0),
                         };
                         ellipse.MouseDown += (object a, MouseButtonEventArgs b) =>  
                         {
@@ -72,7 +72,7 @@ namespace Graphen
                                 secondEllipse = ellipse;
                         };
                         paintSurface.Children.Add(ellipse);
-                        EllipseCoordinatesMap.Add(ellipse, pos);
+                        EllipseCoordinatesMap.Add(ellipse, position);
                         break;
                     }
                 case DrawingTool.DrawEdge:
