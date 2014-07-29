@@ -1,0 +1,23 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Name="MainPanel" x:Class="Graphen.MainWindow"
+        Title="Graphen" Height="412.971" Width="672.803">
+    <Grid x:Name="MainGrid" DataContext="{Binding Logic}" Cursor="Hand">
+        <Menu HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="75" ClipToBounds="True" Margin="0,20,0,10">
+            <MenuItem x:Name="Draw" Header="Add Vertex" Height="35" Width="75" HorizontalAlignment="Center" VerticalAlignment="Center" Click="PickCircleTool"/>
+            <MenuItem Header="Add Edge" Height="35" Width="75" Click="PickEdgeTool"/>
+            <MenuItem Header="Color" Height="35" Width="75"/>
+            <MenuItem Header="Validate" Height="35" Width="75"/>
+        </Menu>
+        <Canvas x:Name="paintSurface" Background="White" HorizontalAlignment="Stretch" Margin="75,20,0,0" VerticalAlignment="Stretch" Cursor="Hand" MouseLeftButtonDown="DrawElement"/>
+        <Border HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="20" Background="#FF999999">
+        </Border>
+        <Button Content="File" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Edit" HorizontalAlignment="Left" Margin="75,0,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Tools" HorizontalAlignment="Left" Margin="150,0,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Options" HorizontalAlignment="Left" Margin="225,0,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Help" HorizontalAlignment="Left" Margin="300,0,0,0" VerticalAlignment="Top" Width="75"/>
+
+    </Grid>
+</Window>

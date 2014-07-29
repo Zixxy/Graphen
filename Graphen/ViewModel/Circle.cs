@@ -13,6 +13,7 @@ namespace Graphen.ViewModel
     {
         public readonly Ellipse ellipse;
         private System.Windows.Point position;
+        public Vector StrengthVector { get; set; }
 
         public Circle(System.Windows.Point position)
         {
@@ -71,9 +72,12 @@ namespace Graphen.ViewModel
         {
             var r1 = a.ellipse.Width/2;
             var r2 = b.ellipse.Width/2;
-            double d = Math.Sqrt((a.Position.X - b.Position.X) * (a.Position.X - b.Position.X) + 
+            return CountDistance(a, b) < r1 + r2;
+        }
+        public static double CountDistance(Circle a, Circle b)
+        {
+            return Math.Sqrt((a.Position.X - b.Position.X) * (a.Position.X - b.Position.X) +
                 (a.Position.Y - b.Position.Y) * (a.Position.Y - b.Position.Y));
-            return d < r1 + r2;
         }
     }
 }
