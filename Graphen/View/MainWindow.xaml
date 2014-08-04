@@ -9,6 +9,7 @@
             <MenuItem Header="Add Edge" Height="35" Width="75" Click="PickEdgeTool"/>
             <MenuItem Header="Color" Height="35" Width="75"/>
             <MenuItem Header="Validate" Height="35" Width="75"/>
+            <MenuItem Header="Arrange" Height="35" Width="75" Click="ArrangeVertices"/>
         </Menu>
         <Canvas x:Name="paintSurface" Background="White" HorizontalAlignment="Stretch" Margin="75,20,0,0" VerticalAlignment="Stretch" Cursor="Hand" MouseLeftButtonDown="DrawElement"/>
         <Border HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="20" Background="#FF999999">

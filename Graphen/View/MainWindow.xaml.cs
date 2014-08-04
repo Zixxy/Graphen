@@ -12,6 +12,7 @@ using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Threading;
 
 namespace Graphen
 {
@@ -23,6 +24,7 @@ namespace Graphen
         private Circle firstCircle;
         private Circle secondCircle;
         private Controler controler;
+        public static MainWindow mainWindow; 
         public enum DrawingTool { DrawVertex, DrawEdge, SetColor, Validate }
         public DrawingTool ActualTool { get; set; }
         public MainWindow()
@@ -32,6 +34,7 @@ namespace Graphen
             this.Hide();
             MenuWindow menu = new MenuWindow();
             menu.Show();
+            mainWindow = this;
            // DataContext = new Controler();
         }
 
@@ -42,6 +45,11 @@ namespace Graphen
         private void PickEdgeTool(object sender, RoutedEventArgs e)
         {
             ActualTool = DrawingTool.DrawEdge;
+        }
+        private void ArrangeVertices(object sender, RoutedEventArgs e)
+        {
+            Thread execute = new Thread(controler.ArrangeVertices);
+            execute.Start();
         }
         private void DrawElement(object sender, MouseButtonEventArgs e)
         {

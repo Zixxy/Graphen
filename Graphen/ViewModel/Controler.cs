@@ -42,5 +42,20 @@ namespace Graphen.ViewModel
             if(!edges.ContainsKey(e))
                 edges.Add(e, line);
         }
+
+        internal void ArrangeVertices()
+        {
+            do
+            {
+                DateTime now = DateTime.Now;
+                ICollection<Circle> circles = vertices.Keys;
+                foreach (Circle i in vertices.Keys)
+                {
+                    Console.WriteLine(Circle.movingCircles);
+                    Physics.ActualizeStrengthVector(i, vertices.Keys);
+                    Physics.ActualizeCurrentCirclePosition(now.Second, now.Millisecond, i);
+                }
+            } while (Circle.movingCircles != 0);
+        }
     }
 }

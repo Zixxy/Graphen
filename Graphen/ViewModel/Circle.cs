@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Shapes;
 using System.Windows.Media;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace Graphen.ViewModel
 {
@@ -13,7 +14,32 @@ namespace Graphen.ViewModel
     {
         public readonly Ellipse ellipse;
         private System.Windows.Point position;
-        public Vector StrengthVector { get; set; }
+        private Vector strengthVector;
+        private static readonly Vector zeroVector;
+        public static int movingCircles = 0;
+        public Vector StrengthVector
+        {
+            get
+            {
+                return strengthVector;
+            }
+            set
+            {
+                if (strengthVector == zeroVector && value != zeroVector)
+                {
+                    Console.WriteLine("mszsz");
+                    Console.WriteLine(strengthVector);
+                    ++movingCircles;
+                }
+                else if (value == zeroVector && strengthVector != zeroVector)
+                {
+                    Console.WriteLine("DAFUUQ!?!?!??!");
+                    Console.WriteLine(strengthVector);
+                    --movingCircles;
+                }
+                strengthVector = value;
+            }
+        }
 
         public Circle(System.Windows.Point position)
         {
@@ -37,7 +63,8 @@ namespace Graphen.ViewModel
             }
             set
             {
-                ellipse.Margin = new Thickness(value.X - 10, value.Y - 10, 0, 0);
+                Action updateAction = new Action(() => ellipse.Margin = new Thickness(value.X - 10, value.Y - 10, 0, 0));
+                MainWindow.mainWindow.InvokeIfRequired(updateAction);
                 position = value;
             }
         }
@@ -54,6 +81,10 @@ namespace Graphen.ViewModel
             return o.ellipse.Equals(ellipse)  && Position == o.Position;
         }
 
+        public override string ToString()
+        {
+            return base.ToString() + position.ToString();
+        }
         public static bool operator ==(Circle a, Circle b)
         {
             if (Object.ReferenceEquals(a, null) && Object.ReferenceEquals(b, null))
