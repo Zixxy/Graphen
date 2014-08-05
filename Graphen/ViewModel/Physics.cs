@@ -12,24 +12,24 @@ namespace Graphen.ViewModel
         //for now i do every operation in o(n^2). In the future we will partition graph into sectors so that we can calulate it in o(n).
         private const double repelRange = 40;
         private const double speedOfMoving = 0.1;
-        public static Vector CalculateStrengthVector(Circle c, ICollection<Circle> circles)
+        public static Vector CalculateForceVector(Circle c, ICollection<Circle> circles)
         {
-            Vector accidentalStrength = new Vector();
+            Vector resultantForce = new Vector();
             foreach(Circle i in circles){
                 double distance = Circle.CountDistance(i, c);
                 if (repelRange >= distance && distance != 0)
                 {
                     Vector v = new Vector(c.Position.X - i.Position.X, c.Position.Y - i.Position.Y);
-                    accidentalStrength += (v * 1 / distance); // inverserly to distance.
+                    resultantForce += (v * 1 / distance); // inverserly to distance.
                 }
             }
          //   System.Diagnostics.Debug.WriteLine("accidental strength "+accidentalStrength);
-            return accidentalStrength;
+            return resultantForce;
         }
 
-        public static void ActualizeStrengthVector(Circle c, ICollection<Circle> circles)
+        public static void ActualizeForceVector(Circle c, ICollection<Circle> circles)
         {
-            c.StrengthVector = CalculateStrengthVector(c, circles);
+            c.StrengthVector = CalculateForceVector(c, circles);
         }
         
         public static Point CalculateCurrentCirclePosition(int secondsBefore, int milisecondsBefore, Circle c)
@@ -47,7 +47,7 @@ namespace Graphen.ViewModel
             return c.Position + c.StrengthVector * timeElapsed * speedOfMoving;
         }
 
-        public static void ActualizeCurrentCirclePosition(int secondsBefore, int milisecondsBefore, Circle c)
+        public static void UpdateCurrentCirclePosition(int secondsBefore, int milisecondsBefore, Circle c)
         {
             c.Position = CalculateCurrentCirclePosition(secondsBefore, milisecondsBefore, c);
         }

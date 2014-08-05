@@ -41,6 +41,8 @@ namespace Graphen.ViewModel
             Edge e = new Edge(v, w);
             if(!edges.ContainsKey(e))
                 edges.Add(e, line);
+            v.AddEdge(e);
+            w.AddEdge(e);
         }
 
         internal void ArrangeVertices()
@@ -49,11 +51,13 @@ namespace Graphen.ViewModel
             {
                 DateTime now = DateTime.Now;
                 ICollection<Circle> circles = vertices.Keys;
+                Vertex v;
+                System.Windows.Shapes.Line line;
+                System.Windows.Point position;
                 foreach (Circle i in vertices.Keys)
                 {
-                    Console.WriteLine(Circle.movingCircles);
-                    Physics.ActualizeStrengthVector(i, vertices.Keys);
-                    Physics.ActualizeCurrentCirclePosition(now.Second, now.Millisecond, i);
+                    Physics.ActualizeForceVector(i, vertices.Keys);
+                    Physics.UpdateCurrentCirclePosition(now.Second, now.Millisecond, i);
                 }
             } while (Circle.movingCircles != 0);
         }

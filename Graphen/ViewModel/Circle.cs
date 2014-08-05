@@ -26,17 +26,9 @@ namespace Graphen.ViewModel
             set
             {
                 if (strengthVector == zeroVector && value != zeroVector)
-                {
-                    Console.WriteLine("mszsz");
-                    Console.WriteLine(strengthVector);
                     ++movingCircles;
-                }
                 else if (value == zeroVector && strengthVector != zeroVector)
-                {
-                    Console.WriteLine("DAFUUQ!?!?!??!");
-                    Console.WriteLine(strengthVector);
                     --movingCircles;
-                }
                 strengthVector = value;
             }
         }
@@ -54,7 +46,6 @@ namespace Graphen.ViewModel
             };
             this.position = position;
         }
-
         public System.Windows.Point Position
         {
             get
@@ -63,7 +54,8 @@ namespace Graphen.ViewModel
             }
             set
             {
-                Action updateAction = new Action(() => ellipse.Margin = new Thickness(value.X - 10, value.Y - 10, 0, 0));
+                Action updateAction = new Action(() => 
+                    ellipse.Margin = new Thickness(value.X - 10, value.Y - 10, 0, 0));
                 MainWindow.mainWindow.InvokeIfRequired(updateAction);
                 position = value;
             }
