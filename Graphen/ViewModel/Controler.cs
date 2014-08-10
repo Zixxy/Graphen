@@ -51,13 +51,37 @@ namespace Graphen.ViewModel
             {
                 DateTime now = DateTime.Now;
                 ICollection<Circle> circles = vertices.Keys;
-                Vertex v;
-                System.Windows.Shapes.Line line;
-                System.Windows.Point position;
+                
                 foreach (Circle i in vertices.Keys)
                 {
+                    Vertex v;
+                    System.Windows.Shapes.Line line;
+                    System.Windows.Point oldPosition;
+
+                    oldPosition = i.Position;
+
                     Physics.ActualizeForceVector(i, vertices.Keys);
                     Physics.UpdateCurrentCirclePosition(now.Second, now.Millisecond, i);
+
+                    vertices.TryGetValue(i, out v);
+                    foreach (Edge e in v.AdjacentEdges)
+                    {
+                        edges.TryGetValue(e, out line);
+                        Action act = delegate()
+                        {
+                            if (line.X1 == oldPosition.X && line.Y1 == oldPosition.Y)
+                            {
+                                line.X1 = i.Position.X;
+                                line.Y1 = i.Position.Y;
+                            }
+                            else
+                            {
+                                line.X2 = i.Position.X;
+                                line.Y2 = i.Position.Y;
+                            }
+                        };
+                        line.Dispatcher.Invoke(act);
+                    }
                 }
             } while (Circle.movingCircles != 0);
         }
