@@ -2,7 +2,8 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Name="MainPanel" x:Class="Graphen.MainWindow"
-        Title="Graphen" Height="412.971" Width="672.803">
+        Title="Graphen" Height="412.971" Width="672.803"
+        WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <Grid x:Name="MainGrid" DataContext="{Binding Logic}" Cursor="Hand">
         <Menu HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="75" ClipToBounds="True" Margin="0,20,0,10">
             <MenuItem x:Name="Draw" Header="Add Vertex" Height="35" Width="75" HorizontalAlignment="Center" VerticalAlignment="Center" Click="PickCircleTool"/>

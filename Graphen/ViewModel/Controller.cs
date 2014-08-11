@@ -8,41 +8,47 @@ using Graphen.Graph;
 
 namespace Graphen.ViewModel
 {
-    // this class probobly should be singleton. Idk if this should be named controler? xD
-    public class Controler : INotifyPropertyChanged
+    public class Controller : INotifyPropertyChanged
     {
+        private Graph.Graph graph;
+
         private Dictionary<Circle, Vertex> vertices; // we may do it using hashmap, previously implementing good hash function to circle.
         private Dictionary<Edge, System.Windows.Shapes.Line> edges;
-        public static readonly Controler controler = new Controler();
-        private Controler()
+
+        internal Controller()
         {
+            graph = new Graph.Graph();
             vertices = new Dictionary<Circle,Vertex>();
             edges = new Dictionary<Edge, System.Windows.Shapes.Line>();
         }
+
         event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged
         {
             add {  }
             remove { }
         }
 
-        /*{Binding PickCircleToolProp}*/
-
         public void AddVertex(Circle circle)
         {
-            vertices.Add(circle, new Vertex());
+            Vertex newVertex = new Vertex();
+            graph.AddVertex(newVertex);
+
+            vertices.Add(circle, newVertex);
         }
 
-        public void AddEdge(System.Windows.Shapes.Line line, Circle o1, Circle o2)
+        public void AddEdge(System.Windows.Shapes.Line line, Circle c1, Circle c2)
         {
             Vertex v;
             Vertex w;
-            vertices.TryGetValue(o1, out v);
-            vertices.TryGetValue(o1, out w);
+            vertices.TryGetValue(c1, out v);
+            vertices.TryGetValue(c2, out w);
+
             Edge e = new Edge(v, w);
-            if(!edges.ContainsKey(e))
+
+            if (graph.AddEdge(e))
+            {
                 edges.Add(e, line);
-            v.AddEdge(e);
-            w.AddEdge(e);
+            }
         }
 
         internal void ArrangeVertices()
@@ -67,7 +73,7 @@ namespace Graphen.ViewModel
                     foreach (Edge e in v.AdjacentEdges)
                     {
                         edges.TryGetValue(e, out line);
-                        Action act = delegate()
+                        Action moveLine = delegate()
                         {
                             if (line.X1 == oldPosition.X && line.Y1 == oldPosition.Y)
                             {
@@ -80,7 +86,7 @@ namespace Graphen.ViewModel
                                 line.Y2 = i.Position.Y;
                             }
                         };
-                        line.Dispatcher.Invoke(act);
+                        line.Dispatcher.Invoke(moveLine);
                     }
                 }
             } while (Circle.movingCircles != 0);

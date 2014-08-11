@@ -47,21 +47,25 @@ namespace Graphen.Graph
             }
         }
 
-        public void AddVertex(String label)
+        public void AddVertex(Vertex v)
         {
-            vertices.Add(new Vertex(label));
+            vertices.Add(v);
         }
 
-        public void AddVertex()
+        public bool AddEdge(Edge e)
         {
-            vertices.Add(new Vertex());
-        }
+            if (!edges.Contains(e))
+            {
+                e.First.AddEdge(e);
+                e.Second.AddEdge(e);
+                edges.Add(e);
 
-        public void AddEdge(Vertex v, Vertex g)
-        {
-            Edge edge = new Edge(v, g);
-            v.AddEdge(edge);
-            g.AddEdge(edge);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public void RemoveEdge(Edge e)

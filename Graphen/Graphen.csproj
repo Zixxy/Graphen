@@ -61,7 +61,7 @@
     <Compile Include="Graph\Graph.cs" />
     <Compile Include="Graph\Vertex.cs" />
     <Compile Include="ViewModel\Circle.cs" />
-    <Compile Include="ViewModel\Controler.cs" />
+    <Compile Include="ViewModel\Controller.cs" />
     <Compile Include="ViewModel\ControlExtensions.cs" />
     <Compile Include="ViewModel\Physics.cs" />
     <Compile Include="View\MainWindow.xaml.cs">

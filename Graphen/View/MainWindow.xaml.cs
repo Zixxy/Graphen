@@ -21,45 +21,52 @@ namespace Graphen
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Controller controller;
+        
         private Circle firstCircle;
         private Circle secondCircle;
-        private Controler controler;
-        public static MainWindow mainWindow; 
-        public enum DrawingTool { DrawVertex, DrawEdge, SetColor, Validate }
+
+        public static MainWindow mainWindow; //WHY
+
+        public enum DrawingTool 
+        {
+            DRAW_VERTEX, DRAW_EDGE, SET_COLOR, VALIDATE 
+        }
         public DrawingTool ActualTool { get; set; }
+
         public MainWindow()
         {
-            controler = Controler.controler;
-            InitializeComponent();
-            this.Hide();
-            MenuWindow menu = new MenuWindow();
-            menu.Show();
+            controller = new Controller();
             mainWindow = this;
-           // DataContext = new Controler();
+            InitializeComponent();
         }
 
         private void PickCircleTool(object sender, RoutedEventArgs e)
         {
-            ActualTool = DrawingTool.DrawVertex;
+            ActualTool = DrawingTool.DRAW_VERTEX;
         }
+
         private void PickEdgeTool(object sender, RoutedEventArgs e)
         {
-            ActualTool = DrawingTool.DrawEdge;
+            ActualTool = DrawingTool.DRAW_EDGE;
         }
+
         private void ArrangeVertices(object sender, RoutedEventArgs e)
         {
-            Thread execute = new Thread(controler.ArrangeVertices);
+            Thread execute = new Thread(controller.ArrangeVertices);
             execute.Start();
         }
+
+        //For each tool separate method.
         private void DrawElement(object sender, MouseButtonEventArgs e)
         {
             System.Windows.Point position = Mouse.GetPosition(paintSurface);// System.Windows.Forms.Control.MousePosition;
             switch (ActualTool)
             {
-                case DrawingTool.DrawVertex:
+                case DrawingTool.DRAW_VERTEX:
                     {
                         Circle circle = new Circle(position);
-                        controler.AddVertex(circle);
+                        controller.AddVertex(circle);
                         Ellipse ellipse = circle.ellipse;
                         ellipse.MouseDown += (object a, MouseButtonEventArgs b) =>  
                         { 
@@ -77,7 +84,7 @@ namespace Graphen
                         paintSurface.Children.Add(ellipse);
                         break;
                     }
-                case DrawingTool.DrawEdge:
+                case DrawingTool.DRAW_EDGE:
                     {
                         if (firstCircle == null || secondCircle == null)
                             return;
@@ -88,7 +95,7 @@ namespace Graphen
                             X2 = secondCircle.Position.X,
                             Y2 = secondCircle.Position.Y
                         };
-                        controler.AddEdge(line, firstCircle, secondCircle);
+                        controller.AddEdge(line, firstCircle, secondCircle);
                         line.Stroke = System.Windows.Media.Brushes.LightSteelBlue;
                         line.StrokeThickness = 2;
                         paintSurface.Children.Add(line);
@@ -96,12 +103,12 @@ namespace Graphen
                         secondCircle = null;
                         break;
                     }
-                case DrawingTool.Validate:
+                case DrawingTool.VALIDATE:
                     {
                         throw new NotImplementedException();
                        // break;
                     }
-                case DrawingTool.SetColor:
+                case DrawingTool.SET_COLOR:
                     {
                         throw new NotImplementedException();
                        // break;
