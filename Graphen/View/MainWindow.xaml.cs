@@ -26,8 +26,6 @@ namespace Graphen
         private Circle firstCircle;
         private Circle secondCircle;
 
-        public static MainWindow mainWindow; //WHY
-
         public enum DrawingTool 
         {
             DRAW_VERTEX, DRAW_EDGE, SET_COLOR, VALIDATE 
@@ -37,7 +35,6 @@ namespace Graphen
         public MainWindow()
         {
             controller = new Controller();
-            mainWindow = this;
             InitializeComponent();
         }
 
@@ -57,7 +54,6 @@ namespace Graphen
             execute.Start();
         }
 
-        //For each tool separate method.
         private void DrawElement(object sender, MouseButtonEventArgs e)
         {
             System.Windows.Point position = Mouse.GetPosition(paintSurface);// System.Windows.Forms.Control.MousePosition;
@@ -65,42 +61,12 @@ namespace Graphen
             {
                 case DrawingTool.DRAW_VERTEX:
                     {
-                        Circle circle = new Circle(position);
-                        controller.AddVertex(circle);
-                        Ellipse ellipse = circle.ellipse;
-                        ellipse.MouseDown += (object a, MouseButtonEventArgs b) =>  
-                        { 
-                            /*
-                             * i have to find better solution of mouse clicking ellipse.
-                             * For now it is not well.
-                             * */
-                            if (firstCircle == null)
-                                firstCircle = circle;
-                            else if(secondCircle != null)
-                                firstCircle = circle;
-                            else
-                                secondCircle = circle;
-                        };
-                        paintSurface.Children.Add(ellipse);
+                        CreateVertex(position);
                         break;
                     }
                 case DrawingTool.DRAW_EDGE:
                     {
-                        if (firstCircle == null || secondCircle == null)
-                            return;
-                        Line line = new Line()
-                        {
-                            X1 = firstCircle.Position.X,
-                            Y1 = firstCircle.Position.Y,
-                            X2 = secondCircle.Position.X,
-                            Y2 = secondCircle.Position.Y
-                        };
-                        controller.AddEdge(line, firstCircle, secondCircle);
-                        line.Stroke = System.Windows.Media.Brushes.LightSteelBlue;
-                        line.StrokeThickness = 2;
-                        paintSurface.Children.Add(line);
-                        firstCircle = secondCircle;
-                        secondCircle = null;
+                        CreateEdge();
                         break;
                     }
                 case DrawingTool.VALIDATE:
@@ -117,6 +83,45 @@ namespace Graphen
                     throw new ArgumentException("Invalid DrawTool:" + ActualTool + "picked"); 
 
             }
+        }
+        private void CreateVertex(System.Windows.Point position)
+        {
+            Circle circle = new Circle(position);
+            controller.AddVertex(circle);
+            Ellipse ellipse = circle.ellipse;
+            ellipse.MouseDown += (object a, MouseButtonEventArgs b) =>
+            {
+                if (firstCircle == null)
+                    firstCircle = circle;
+                else if (secondCircle != null)
+                    firstCircle = circle;
+                else
+                    secondCircle = circle;
+            };
+            paintSurface.Children.Add(ellipse);
+        }
+
+        private void CreateEdge()
+        {
+            if (firstCircle == null || secondCircle == null)
+                return;
+            if (!controller.ContainsEdge(firstCircle, secondCircle) && 
+                firstCircle != secondCircle)
+            {
+                Line line = new Line()
+                {
+                    X1 = firstCircle.Position.X,
+                    Y1 = firstCircle.Position.Y,
+                    X2 = secondCircle.Position.X,
+                    Y2 = secondCircle.Position.Y
+                };
+                controller.AddEdge(line, firstCircle, secondCircle);
+                line.Stroke = System.Windows.Media.Brushes.LightSteelBlue;
+                line.StrokeThickness = 2;
+                paintSurface.Children.Add(line);
+            }
+            firstCircle = null;
+            secondCircle = null;
         }
     }
 }

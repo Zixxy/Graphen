@@ -12,7 +12,7 @@ namespace Graphen.ViewModel
     {
         private Graph.Graph graph;
 
-        private Dictionary<Circle, Vertex> vertices; // we may do it using hashmap, previously implementing good hash function to circle.
+        private Dictionary<Circle, Vertex> vertices;
         private Dictionary<Edge, System.Windows.Shapes.Line> edges;
 
         internal Controller()
@@ -36,10 +36,18 @@ namespace Graphen.ViewModel
             vertices.Add(circle, newVertex);
         }
 
+        public bool ContainsEdge(Circle c1, Circle c2)
+        {
+            Vertex v, w;
+            vertices.TryGetValue(c1, out v);
+            vertices.TryGetValue(c2, out w);
+
+            Edge e = new Edge(v, w);
+            return graph.ContainsEdge(e);
+        }
         public void AddEdge(System.Windows.Shapes.Line line, Circle c1, Circle c2)
         {
-            Vertex v;
-            Vertex w;
+            Vertex v, w;
             vertices.TryGetValue(c1, out v);
             vertices.TryGetValue(c2, out w);
 
@@ -66,7 +74,7 @@ namespace Graphen.ViewModel
 
                     oldPosition = i.Position;
 
-                    Physics.ActualizeForceVector(i, vertices.Keys);
+                    Physics.UpdateForceVector(i, vertices.Keys);
                     Physics.UpdateCurrentCirclePosition(now.Second, now.Millisecond, i);
 
                     vertices.TryGetValue(i, out v);

@@ -29,7 +29,8 @@ namespace Graphen.Graph
                 return false;
             }
             Edge edge = (Edge)obj;
-            return First == edge.First && Second == edge.Second;
+            return (First == edge.First && Second == edge.Second) ||
+                (First == edge.Second && Second == edge.First);
         }
 
         public static bool operator ==(Edge e, Edge r)
@@ -44,7 +45,7 @@ namespace Graphen.Graph
 
         public override int GetHashCode()
         {
-            return (First.GetHashCode() * 31 + Second.GetHashCode()) * 31;
+            return (First.GetHashCode() + Second.GetHashCode()) * 31;
         }
 
         public override string ToString()

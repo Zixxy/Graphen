@@ -16,6 +16,7 @@ namespace Graphen.ViewModel
         private System.Windows.Point position;
         private Vector strengthVector;
         private static readonly Vector zeroVector;
+        public static readonly MainWindow madaads;
         public static int movingCircles = 0;
         public Vector StrengthVector
         {
@@ -56,7 +57,7 @@ namespace Graphen.ViewModel
             {
                 Action updateAction = new Action(() => 
                     ellipse.Margin = new Thickness(value.X - 10, value.Y - 10, 0, 0));
-                MainWindow.mainWindow.InvokeIfRequired(updateAction);
+                ellipse.Dispatcher.Invoke(updateAction);
                 position = value;
             }
         }

@@ -10,12 +10,13 @@ namespace Graphen.ViewModel
     public static class Physics // im wondering if this should be in ViewModel or Model? Anyway its movable.
     {
         //for now i do every operation in o(n^2). In the future we will partition graph into sectors so that we can calulate it in o(n).
-        private const double repelRange = 40;
+        private const double repelRange = 60;
         private const double speedOfMoving = 0.1;
         public static Vector CalculateForceVector(Circle c, ICollection<Circle> circles)
         {
             Vector resultantForce = new Vector();
-            foreach(Circle i in circles){
+            foreach(Circle i in circles)
+            {
                 double distance = Circle.CountDistance(i, c);
                 if (repelRange >= distance && distance != 0)
                 {
@@ -27,7 +28,7 @@ namespace Graphen.ViewModel
             return resultantForce;
         }
 
-        public static void ActualizeForceVector(Circle c, ICollection<Circle> circles)
+        public static void UpdateForceVector(Circle c, ICollection<Circle> circles)
         {
             c.StrengthVector = CalculateForceVector(c, circles);
         }

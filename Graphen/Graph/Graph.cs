@@ -52,6 +52,10 @@ namespace Graphen.Graph
             vertices.Add(v);
         }
 
+        public bool ContainsEdge(Edge e)
+        {
+            return edges.Contains(e);
+        }
         public bool AddEdge(Edge e)
         {
             if (!edges.Contains(e))
