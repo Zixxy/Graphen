@@ -28,7 +28,7 @@ namespace Graphen
 
         public enum DrawingTool 
         {
-            DRAW_VERTEX, DRAW_EDGE, SET_COLOR, VALIDATE 
+            DRAW_VERTEX, REMOVE_VERTEX, DRAW_EDGE, SET_COLOR, VALIDATE
         }
         public DrawingTool ActualTool { get; set; }
 
@@ -48,6 +48,11 @@ namespace Graphen
             ActualTool = DrawingTool.DRAW_EDGE;
         }
 
+        private void PickRemoveVertexTool(object sender, RoutedEventArgs e)
+        {
+            ActualTool = DrawingTool.REMOVE_VERTEX;
+        }
+
         private void ArrangeVertices(object sender, RoutedEventArgs e)
         {
             Thread execute = new Thread(controller.ArrangeVertices);
@@ -62,6 +67,11 @@ namespace Graphen
                 case DrawingTool.DRAW_VERTEX:
                     {
                         CreateVertex(position);
+                        break;
+                    }
+                case DrawingTool.REMOVE_VERTEX:
+                    {
+                        RemoveVertex(position);
                         break;
                     }
                 case DrawingTool.DRAW_EDGE:
@@ -122,6 +132,17 @@ namespace Graphen
             }
             firstCircle = null;
             secondCircle = null;
+        }
+
+        private void RemoveVertex(System.Windows.Point position)
+        {
+            controller.RemoveVertex(position, this);
+            firstCircle = secondCircle = null;
+        }
+
+        public void RemoveElementFromSurface(System.Windows.UIElement element)
+        {
+            paintSurface.Children.Remove(element);
         }
     }
 }

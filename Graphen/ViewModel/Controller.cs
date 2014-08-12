@@ -36,6 +36,29 @@ namespace Graphen.ViewModel
             vertices.Add(circle, newVertex);
         }
 
+        //Consider ambiguous choice
+        public void RemoveVertex(System.Windows.Point position, MainWindow view)
+        {
+            foreach (Circle c in vertices.Keys)
+            {
+                if (c.ContainsPoint(position))
+                {
+                    Vertex v;
+                    vertices.TryGetValue(c, out v);
+
+                    view.RemoveElementFromSurface(c.ellipse);
+                    foreach (Edge e in v.AdjacentEdges)
+                    {
+                        System.Windows.Shapes.Line edgeLine;
+                        edges.TryGetValue(e, out edgeLine);
+                        view.RemoveElementFromSurface(edgeLine);
+                    }
+
+                    graph.RemoveVertex(v);
+                }
+            }
+        }
+
         public bool ContainsEdge(Circle c1, Circle c2)
         {
             Vertex v, w;
@@ -45,6 +68,7 @@ namespace Graphen.ViewModel
             Edge e = new Edge(v, w);
             return graph.ContainsEdge(e);
         }
+
         public void AddEdge(System.Windows.Shapes.Line line, Circle c1, Circle c2)
         {
             Vertex v, w;
