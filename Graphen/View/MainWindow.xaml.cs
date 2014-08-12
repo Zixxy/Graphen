@@ -30,7 +30,7 @@ namespace Graphen
         {
             DRAW_VERTEX, REMOVE_VERTEX, DRAW_EDGE, SET_COLOR, VALIDATE
         }
-        public DrawingTool ActualTool { get; set; }
+        public DrawingTool CurrentTool { get; set; }
 
         public MainWindow()
         {
@@ -40,17 +40,17 @@ namespace Graphen
 
         private void PickCircleTool(object sender, RoutedEventArgs e)
         {
-            ActualTool = DrawingTool.DRAW_VERTEX;
+            CurrentTool = DrawingTool.DRAW_VERTEX;
         }
 
         private void PickEdgeTool(object sender, RoutedEventArgs e)
         {
-            ActualTool = DrawingTool.DRAW_EDGE;
+            CurrentTool = DrawingTool.DRAW_EDGE;
         }
 
         private void PickRemoveVertexTool(object sender, RoutedEventArgs e)
         {
-            ActualTool = DrawingTool.REMOVE_VERTEX;
+            CurrentTool = DrawingTool.REMOVE_VERTEX;
         }
 
         private void ArrangeVertices(object sender, RoutedEventArgs e)
@@ -62,7 +62,7 @@ namespace Graphen
         private void DrawElement(object sender, MouseButtonEventArgs e)
         {
             System.Windows.Point position = Mouse.GetPosition(paintSurface);// System.Windows.Forms.Control.MousePosition;
-            switch (ActualTool)
+            switch (CurrentTool)
             {
                 case DrawingTool.DRAW_VERTEX:
                     {
@@ -90,7 +90,7 @@ namespace Graphen
                        // break;
                     }
                 default:
-                    throw new ArgumentException("Invalid DrawTool:" + ActualTool + "picked"); 
+                    throw new ArgumentException("Invalid DrawTool:" + CurrentTool + "picked"); 
 
             }
         }
@@ -102,17 +102,24 @@ namespace Graphen
 
             ellipse.MouseDown += (object a, MouseButtonEventArgs b) =>
             {
-                if (firstCircle == null)
-                    firstCircle = circle;
-                else if (secondCircle != null)
-                    firstCircle = circle;
+                if (CurrentTool == DrawingTool.DRAW_EDGE) 
+                {
+                    if (firstCircle == null)
+                        firstCircle = circle;
+                    else if (secondCircle != null)
+                        firstCircle = circle;
+                    else
+                        secondCircle = circle;
+                }
                 else
-                    secondCircle = circle;
+                {
+                    firstCircle = secondCircle = null;
+                }
             };
             //TODO - choose hover effect, do when styling
             ellipse.MouseEnter += (object o, MouseEventArgs e) =>
                 {
-                    if (ActualTool == DrawingTool.DRAW_EDGE)
+                    if (CurrentTool == DrawingTool.DRAW_EDGE)
                     {
                         ellipse.Fill = new SolidColorBrush(Color.FromRgb(0, 0, 0));
                     }
@@ -151,7 +158,6 @@ namespace Graphen
         private void RemoveVertex(System.Windows.Point position)
         {
             controller.RemoveVertex(position, this);
-            firstCircle = secondCircle = null;
         }
 
         public void RemoveElementFromSurface(System.Windows.UIElement element)
