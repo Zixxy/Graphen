@@ -93,8 +93,10 @@ namespace Graphen.Graph
 
             foreach (Edge e in v.AdjacentEdges)
             {
-                RemoveEdge(e);
+                e.GetDestination(v).RemoveEdge(e);
             }
+            v.RemoveAllEdges();
+
             vertices.Remove(v);
         }
 

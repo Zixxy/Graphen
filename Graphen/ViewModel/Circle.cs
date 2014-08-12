@@ -13,6 +13,7 @@ namespace Graphen.ViewModel
     public class Circle
     {
         public readonly Ellipse ellipse;
+        private int radius = 10;
         private System.Windows.Point position;
         private Vector strengthVector;
         private static readonly Vector zeroVector;
@@ -47,6 +48,7 @@ namespace Graphen.ViewModel
             };
             this.position = position;
         }
+
         public System.Windows.Point Position
         {
             get
@@ -60,6 +62,10 @@ namespace Graphen.ViewModel
                 ellipse.Dispatcher.Invoke(updateAction);
                 position = value;
             }
+        }
+
+        public bool ContainsPoint(System.Windows.Point point) {
+            return Math.Pow(point.X - position.X, 2) + Math.Pow(point.Y - position.Y, 2) <= Math.Pow(radius, 2);
         }
 
         public override int GetHashCode()
