@@ -137,6 +137,7 @@ namespace Graphen
         private void RemoveVertex(System.Windows.Point position)
         {
             controller.RemoveVertex(position, this);
+            firstCircle = secondCircle = null;
         }
 
         public void RemoveElementFromSurface(System.Windows.UIElement element)
