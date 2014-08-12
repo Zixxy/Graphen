@@ -99,6 +99,7 @@ namespace Graphen
             Circle circle = new Circle(position);
             controller.AddVertex(circle);
             Ellipse ellipse = circle.ellipse;
+
             ellipse.MouseDown += (object a, MouseButtonEventArgs b) =>
             {
                 if (firstCircle == null)
@@ -108,6 +109,19 @@ namespace Graphen
                 else
                     secondCircle = circle;
             };
+            //TODO - choose hover effect, do when styling
+            ellipse.MouseEnter += (object o, MouseEventArgs e) =>
+                {
+                    if (ActualTool == DrawingTool.DRAW_EDGE)
+                    {
+                        ellipse.Fill = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+                    }
+                };
+            ellipse.MouseLeave += (object o, MouseEventArgs e) =>
+            {   
+                ellipse.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 150, 0));
+            };
+
             paintSurface.Children.Add(ellipse);
         }
 
