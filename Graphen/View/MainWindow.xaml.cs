@@ -26,6 +26,8 @@ namespace Graphen
         private Circle firstCircle;
         private Circle secondCircle;
 
+        const double ScaleRate = 1.1;
+
         public enum DrawingTool 
         {
             DRAW_VERTEX, REMOVE_VERTEX, DRAW_EDGE, SET_COLOR, VALIDATE
@@ -92,6 +94,26 @@ namespace Graphen
                 default:
                     throw new ArgumentException("Invalid DrawTool:" + CurrentTool + "picked"); 
 
+            }
+        }
+        private void MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (e.Delta > 0)
+            {
+                scaleTransform.ScaleX *= ScaleRate;
+                scaleTransform.ScaleY *= ScaleRate;
+            }
+            else
+            {
+
+                scaleTransform.ScaleX /= ScaleRate;
+                scaleTransform.ScaleY /= ScaleRate;
+                /*
+                Thickness x = paintSurface.Margin;
+                x.Right -= 1.08 * paintSurface.ActualWidth;
+                x.Bottom -= 1.08 * paintSurface.ActualHeight;
+
+                paintSurface.Margin = x;*/
             }
         }
         private void CreateVertex(System.Windows.Point position)
