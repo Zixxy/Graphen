@@ -36,7 +36,7 @@ namespace Graphen.ViewModel
             vertices.Add(circle, newVertex);
         }
 
-        //Consider ambiguous choice
+        //TODO Consider ambiguous choice
         public void RemoveVertex(System.Windows.Point position, MainWindow view)
         {
             foreach (Circle c in vertices.Keys)
@@ -58,6 +58,7 @@ namespace Graphen.ViewModel
                 }
             }
         }
+
 
         public bool ContainsEdge(Circle c1, Circle c2)
         {
@@ -81,6 +82,17 @@ namespace Graphen.ViewModel
             {
                 edges.Add(e, line);
             }
+        }
+
+        //TODO Consider ambiguous choice
+        //TODO do it in O(1)
+        public void RemoveEdge(System.Windows.Shapes.Line lineCliked, MainWindow view)
+        {
+            Edge edgeToRemove = edges.First(e => e.Value == lineCliked).Key;
+            graph.RemoveEdge(edgeToRemove);
+            edges.Remove(edgeToRemove);
+
+            view.RemoveElementFromSurface(lineCliked);
         }
 
         internal void ArrangeVertices()
