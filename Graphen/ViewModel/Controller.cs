@@ -123,5 +123,23 @@ namespace Graphen.ViewModel
                 }
             } while (Circle.movingCircles != 0);
         }
+
+        public void CleanGraph(MainWindow view)
+        {
+            foreach (Circle c in vertices.Keys)
+            {
+                view.RemoveElementFromSurface(c.ellipse);
+            }
+
+            foreach (System.Windows.Shapes.Line l in edges.Values)
+            {
+                view.RemoveElementFromSurface(l);
+            }
+
+            vertices.Clear();
+            edges.Clear();
+
+            graph.Clear();
+        }
     }
 }

@@ -111,9 +111,11 @@ namespace Graphen.Graph
 
         public void Clear()
         {
-            foreach (Vertex v in vertices)
+            while (vertices.Count > 0)
             {
+                Vertex v = vertices.First();
                 RemoveVertex(v);
+                vertices.Remove(v);
             }
         }
 
