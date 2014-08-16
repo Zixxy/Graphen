@@ -21,6 +21,7 @@
         <Button Content="Tools" HorizontalAlignment="Left" Margin="150,0,0,0" VerticalAlignment="Top" Width="75"/>
         <Button Content="Options" HorizontalAlignment="Left" Margin="225,0,0,0" VerticalAlignment="Top" Width="75"/>
         <Button Content="Help" HorizontalAlignment="Left" Margin="300,0,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="C" HorizontalAlignment="Right" Margin="0,22,0.4,0" VerticalAlignment="Top" Width="30" Height="30" Click="ClearWorkspace" RenderTransformOrigin="0.394,2.394"/>
 
     </Grid>
 </Window>

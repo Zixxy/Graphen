@@ -59,6 +59,11 @@ namespace Graphen
             execute.Start();
         }
 
+        private void ClearWorkspace(object sender, RoutedEventArgs e)
+        {
+            controller.CleanGraph(this);
+        }
+
         private void DrawElement(object sender, MouseButtonEventArgs e)
         {
             System.Windows.Point position = Mouse.GetPosition(paintSurface);// System.Windows.Forms.Control.MousePosition;
