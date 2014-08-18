@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Name="MainPanel" x:Class="Graphen.MainWindow"
         Title="Graphen" Height="412.971" Width="672.803"
-        WindowStartupLocation="CenterScreen" WindowState="Maximized">
+        WindowStartupLocation="CenterScreen" WindowState="Maximized" Loaded="Window_Loaded">
     <Grid x:Name="MainGrid" DataContext="{Binding Logic}" Cursor="Hand" Background="#FF939393">
         <Menu HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="118" ClipToBounds="True" Margin="0,20,0,0">
             <MenuItem x:Name="Draw" Header="Add Vertex" Height="35" Width="118" HorizontalAlignment="Center" VerticalAlignment="Center" Click="PickCircleTool"/>
@@ -20,14 +20,14 @@
         <Button Content="Tools" HorizontalAlignment="Left" Margin="150,0,0,0" VerticalAlignment="Top" Width="75"/>
         <Button Content="Options" HorizontalAlignment="Left" Margin="225,0,0,0" VerticalAlignment="Top" Width="75"/>
         <Button Content="Help" HorizontalAlignment="Left" Margin="300,0,0,0" VerticalAlignment="Top" Width="75"/>
-        <Canvas x:Name="paintSurface" MouseWheel="MouseWheel" Background="White" HorizontalAlignment="Stretch"
-        	VerticalAlignment="Stretch" Cursor="Hand" MouseLeftButtonDown="DrawElement">
-            <Canvas.Margin>
-                <Thickness>123,27,10,10</Thickness>
-            </Canvas.Margin>
-            <Canvas.RenderTransform>
-                <ScaleTransform x:Name="scaleTransform"/>
-            </Canvas.RenderTransform>
+        <Canvas Margin="118,22,0,0" Background="Black">
+            <Canvas x:Name="paintSurface" MouseWheel="PaintSurfaceMouseWheel" Background="White"
+        		Cursor="Hand" MouseLeftButtonDown="DrawElement" Height="345" Width="532" Canvas.Left="5" Canvas.Top="5">
+                <Canvas.RenderTransform>
+                    <ScaleTransform x:Name="scaleTransform"/>
+                </Canvas.RenderTransform>
+            </Canvas>
+
         </Canvas>
 
     </Grid>

@@ -64,6 +64,7 @@
     <Compile Include="ViewModel\Controller.cs" />
     <Compile Include="ViewModel\ControlExtensions.cs" />
     <Compile Include="ViewModel\Physics.cs" />
+    <Compile Include="View\Adorners\ResizingAdorner.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
