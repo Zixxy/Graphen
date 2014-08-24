@@ -92,7 +92,6 @@ namespace Graphen.ViewModel
                 
                 foreach (Circle i in vertices.Keys)
                 {
-                    Vertex v;
                     System.Windows.Shapes.Line line;
                     System.Windows.Point oldPosition;
 
@@ -101,27 +100,35 @@ namespace Graphen.ViewModel
                     Physics.UpdateForceVector(i, vertices.Keys);
                     Physics.UpdateCurrentCirclePosition(now.Second, now.Millisecond, i);
 
-                    vertices.TryGetValue(i, out v);
-                    foreach (Edge e in v.AdjacentEdges)
-                    {
-                        edges.TryGetValue(e, out line);
-                        Action moveLine = delegate()
-                        {
-                            if (line.X1 == oldPosition.X && line.Y1 == oldPosition.Y)
-                            {
-                                line.X1 = i.Position.X;
-                                line.Y1 = i.Position.Y;
-                            }
-                            else
-                            {
-                                line.X2 = i.Position.X;
-                                line.Y2 = i.Position.Y;
-                            }
-                        };
-                        line.Dispatcher.Invoke(moveLine);
-                    }
+                    UpdateAdjacentEdgesPosition(oldPosition, i);                    
                 }
             } while (Circle.movingCircles != 0);
+        }
+
+        public void UpdateAdjacentEdgesPosition(System.Windows.Point oldPosition, Circle i)
+        {
+            Vertex v;
+            System.Windows.Shapes.Line line;
+
+            vertices.TryGetValue(i, out v);
+            foreach (Edge e in v.AdjacentEdges)
+            {
+                edges.TryGetValue(e, out line);
+                Action moveLine = delegate()
+                {
+                    if (line.X1 == oldPosition.X && line.Y1 == oldPosition.Y)
+                    {
+                        line.X1 = i.Position.X;
+                        line.Y1 = i.Position.Y;
+                    }
+                    else
+                    {
+                        line.X2 = i.Position.X;
+                        line.Y2 = i.Position.Y;
+                    }
+                };
+                line.Dispatcher.Invoke(moveLine);
+            }
         }
 
         public void CleanGraph(MainWindow view)

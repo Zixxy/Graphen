@@ -26,9 +26,11 @@ namespace Graphen
         private Circle firstCircle;
         private Circle secondCircle;
 
+        private Boolean mouseCaptured;
+
         public enum DrawingTool 
         {
-            DRAW_VERTEX, REMOVE_VERTEX, DRAW_EDGE, SET_COLOR, VALIDATE
+            DRAW_VERTEX, REMOVE_VERTEX, DRAW_EDGE, SET_COLOR, VALIDATE, DEFAULT
         }
         public DrawingTool CurrentTool { get; set; }
 
@@ -57,6 +59,11 @@ namespace Graphen
         {
             Thread execute = new Thread(controller.ArrangeVertices);
             execute.Start();
+        }
+
+        private void PickDefaultTool(object sender, RoutedEventArgs e)
+        {
+            CurrentTool = DrawingTool.DEFAULT;
         }
 
         private void ClearWorkspace(object sender, RoutedEventArgs e)
@@ -99,6 +106,10 @@ namespace Graphen
                         throw new NotImplementedException();
                        // break;
                     }
+                case DrawingTool.DEFAULT:
+                    {
+                        break;
+                    }
                 default:
                     throw new ArgumentException("Invalid DrawTool:" + CurrentTool + "picked"); 
 
@@ -110,7 +121,7 @@ namespace Graphen
             controller.AddVertex(circle);
             Ellipse ellipse = circle.ellipse;
 
-            ellipse.MouseDown += (object a, MouseButtonEventArgs b) =>
+            ellipse.MouseDown += (object o, MouseButtonEventArgs b) =>
             {
                 if (CurrentTool == DrawingTool.DRAW_EDGE) 
                 {
@@ -121,11 +132,37 @@ namespace Graphen
                     else
                         secondCircle = circle;
                 }
+                else if (CurrentTool == DrawingTool.DEFAULT)
+                {
+                    mouseCaptured = true;
+                    Mouse.Capture(ellipse);
+                }
                 else
                 {
                     firstCircle = secondCircle = null;
                 }
             };
+
+            ellipse.MouseMove += (object sender, MouseEventArgs e) =>
+                {
+                    if (mouseCaptured && CurrentTool == DrawingTool.DEFAULT)
+                    {
+                        System.Windows.Point mousePosition = Mouse.GetPosition(paintSurface);
+                        System.Windows.Point oldPosition = circle.Position;
+                        circle.Position = mousePosition;
+                        controller.UpdateAdjacentEdgesPosition(oldPosition, circle);
+                    }
+                };
+
+            ellipse.MouseUp += (object o, MouseButtonEventArgs e) =>
+                {
+                    if (CurrentTool == DrawingTool.DEFAULT)
+                    {
+                        mouseCaptured = false;
+                        Mouse.Capture(null);
+                    }
+                };
+
             //TODO - choose hover effect, do when styling
             ellipse.MouseEnter += (object o, MouseEventArgs e) =>
                 {

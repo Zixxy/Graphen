@@ -12,6 +12,7 @@
             <MenuItem Header="Color" Height="35" Width="118"/>
             <MenuItem Header="Validate" Height="35" Width="118"/>
             <MenuItem Header="Arrange" Height="35" Width="118" Click="ArrangeVertices"/>
+            <MenuItem Header="Deafult" Height="35" Width="118" Click="PickDefaultTool"/>
         </Menu>
         <Canvas x:Name="paintSurface" HorizontalAlignment="Stretch" Margin="118,33,0,0" VerticalAlignment="Stretch" Cursor="Hand" MouseLeftButtonDown="DrawElement">
         	<Canvas.Background>
