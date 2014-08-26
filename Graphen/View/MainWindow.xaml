@@ -13,10 +13,14 @@
             <MenuItem Header="Validate" Height="35" Width="118"/>
             <MenuItem Header="Arrange" Height="35" Width="118" Click="ArrangeVertices"/>
         </Menu>
-        <Canvas x:Name="paintSurface" HorizontalAlignment="Stretch" Margin="118,33,0,0" VerticalAlignment="Stretch" Cursor="Hand" MouseLeftButtonDown="DrawElement">
+        <Canvas x:Name="paintSurface" HorizontalAlignment="Stretch" Margin="118,33,0,0" VerticalAlignment="Stretch"
+                Cursor="Hand" MouseLeftButtonDown="DrawElement" MouseWheel="PaintSurfaceMouseWheel">
         	<Canvas.Background>
         		<ImageBrush ImageSource="grid.png"/>
         	</Canvas.Background>
+            <Canvas.RenderTransform>
+                <ScaleTransform x:Name="scaleTransform"/>
+            </Canvas.RenderTransform>
         </Canvas>
         <Border HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="33">
         	<Border.Background>
