@@ -38,6 +38,11 @@ namespace Graphen
             controller = new Controller();
             InitializeComponent();
         }
+        public void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            paintSurface.SetNominalSize(paintSurfaceSurround.ActualWidth, paintSurfaceSurround.ActualHeight);
+            paintSurface.EnsureSize();
+        }
         private void PaintSurfaceMouseWheel(object sender, MouseWheelEventArgs e)
         {
             if (e.Delta > 0)
@@ -50,6 +55,7 @@ namespace Graphen
                 scaleTransform.ScaleX /= scaleRate;
                 scaleTransform.ScaleY /= scaleRate;
             }
+            paintSurface.EnsureSize();
         }
         private void PickCircleTool(object sender, RoutedEventArgs e)
         {
