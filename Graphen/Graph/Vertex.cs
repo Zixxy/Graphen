@@ -138,12 +138,17 @@ namespace Graphen.Graph
 
         public static bool operator ==(Vertex v, Vertex g)
         {
-            return v.Equals(g);
+            if (Object.ReferenceEquals(v, null) && Object.ReferenceEquals(g, null))
+                return true;
+            else if (Object.ReferenceEquals(v, null))
+                return false;
+            else
+                return v.Equals(g);
         }
 
         public static bool operator !=(Vertex v, Vertex g)
         {
-            return !v.Equals(g);
+            return !(v == g);
         }
 
         public override int GetHashCode()
