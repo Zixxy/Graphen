@@ -17,7 +17,7 @@
             <MenuItem Header="Validate" Height="35" Width="118"/>
             <MenuItem Header="Arrange" Height="35" Width="118" Click="ArrangeVertices"/>
         </Menu>
-        <Grid x:Name = "paintSurfaceSurround" Margin="118,33,0,0" Background="Black">
+        <Canvas x:Name = "paintSurfaceSurround" Margin="118,33,0,0">
                 <controls:AutosizingCanvas x:Name="paintSurface"
             			Cursor="Hand" MouseLeftButtonDown="DrawElement" MouseWheel="PaintSurfaceMouseWheel">
                     <controls:AutosizingCanvas.RenderTransform>
@@ -27,7 +27,7 @@
                         <ImageBrush ImageSource="grid.png"/>
                     </controls:AutosizingCanvas.Background>
                 </controls:AutosizingCanvas>
-        </Grid>
+        </Canvas>
         <Border HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="33">
         	<Border.Background>
         		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

@@ -30,6 +30,8 @@ namespace Graphen.View
                 Height = NominalHeight / scale.ScaleY;
                 Width = NominalWidth / scale.ScaleX;
             }
+            Console.WriteLine(Height);
+            Console.WriteLine(Margin);
         }
     }
 }
