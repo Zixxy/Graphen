@@ -29,7 +29,7 @@ namespace Graphen
         const double scaleRate = 1.1;
         public enum DrawingTool 
         {
-            DRAW_VERTEX, REMOVE_VERTEX, DRAW_EDGE, SET_COLOR, VALIDATE
+            DRAW_VERTEX, REMOVE_VERTEX, DRAW_EDGE, REMOVE_EDGE, SET_COLOR, VALIDATE
         }
         public DrawingTool CurrentTool { get; set; }
 
@@ -72,6 +72,11 @@ namespace Graphen
             CurrentTool = DrawingTool.REMOVE_VERTEX;
         }
 
+        private void PickRemoveEdgeTool(object sender, RoutedEventArgs e)
+        {
+            CurrentTool = DrawingTool.REMOVE_EDGE;
+        }
+
         private void ArrangeVertices(object sender, RoutedEventArgs e)
         {
             Thread execute = new Thread(controller.ArrangeVertices);
@@ -108,6 +113,10 @@ namespace Graphen
                         CreateEdge();
                         break;
                     }
+                case DrawingTool.REMOVE_EDGE:
+                    {
+                        break;
+                    }
                 case DrawingTool.VALIDATE:
                     {
                         throw new NotImplementedException();
@@ -123,6 +132,7 @@ namespace Graphen
 
             }
         }
+
         private void CreateVertex(System.Windows.Point position)
         {
             Circle circle = new Circle(position);
@@ -179,6 +189,14 @@ namespace Graphen
                 line.Stroke = System.Windows.Media.Brushes.LightSteelBlue;
                 line.StrokeThickness = 2;
                 paintSurface.Children.Add(line);
+
+                line.MouseDown += (object a, MouseButtonEventArgs b) =>
+                {
+                    if (CurrentTool == DrawingTool.REMOVE_EDGE)
+                    {
+                        controller.RemoveEdge(a as System.Windows.Shapes.Line, this);
+                    }
+                };
             }
             firstCircle = null;
             secondCircle = null;

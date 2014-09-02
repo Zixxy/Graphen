@@ -35,12 +35,17 @@ namespace Graphen.Graph
 
         public static bool operator ==(Edge e, Edge r)
         {
-            return e.Equals(r);
+            if (Object.ReferenceEquals(e, null) && Object.ReferenceEquals(r, null))
+                return true;
+            else if (Object.ReferenceEquals(e, null))
+                return false;
+            else
+                return e.Equals(r);
         }
 
         public static bool operator !=(Edge e, Edge r)
         {
-            return !e.Equals(r);
+            return !(e == r);
         }
 
         public override int GetHashCode()

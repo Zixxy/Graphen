@@ -13,6 +13,7 @@
             <MenuItem x:Name="Draw" Header="Add Vertex" Height="35" Width="118" HorizontalAlignment="Center" VerticalAlignment="Center" Click="PickCircleTool"/>
             <MenuItem Header="Remove Vertex" Height="35" Width="118" HorizontalAlignment="Center" VerticalAlignment="Center" Click="PickRemoveVertexTool"/>
             <MenuItem Header="Add Edge" Height="35" Width="118" Click="PickEdgeTool"/>
+            <MenuItem Header="Remove Edge" Height="35" Width="118" Click="PickRemoveEdgeTool"/>
             <MenuItem Header="Color" Height="35" Width="118"/>
             <MenuItem Header="Validate" Height="35" Width="118"/>
             <MenuItem Header="Arrange" Height="35" Width="118" Click="ArrangeVertices"/>
