@@ -58,7 +58,21 @@ namespace Graphen.ViewModel
                 }
             }
         }
+        public void ApplyTranslateTransformToEachElement(System.Windows.Media.TranslateTransform transf)
+        {
+            foreach (Circle i in vertices.Keys)
+            {
+                i.ellipse.RenderTransform = transf;
+            }
+        }
 
+        public void UpdateEveryElementPosition(double deltaX, double deltaY)
+        {
+            foreach (Circle i in vertices.Keys)
+            {
+                i.Position = new System.Windows.Point(i.Position.X + deltaX, i.Position.Y + deltaY);
+            }
+        }
 
         public bool ContainsEdge(Circle c1, Circle c2)
         {

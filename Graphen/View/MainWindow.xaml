@@ -17,81 +17,84 @@
             <MenuItem Header="Color" Height="35" Width="118"/>
             <MenuItem Header="Validate" Height="35" Width="118"/>
             <MenuItem Header="Arrange" Height="35" Width="118" Click="ArrangeVertices"/>
+            <MenuItem Header="Drag Surface" Height="35" Width="118" Click="DragSurface"/>
         </Menu>
         <Canvas x:Name = "paintSurfaceSurround" Margin="118,33,0,0">
-                <controls:AutosizingCanvas x:Name="paintSurface"
-            			Cursor="Hand" MouseLeftButtonDown="DrawElement" MouseWheel="PaintSurfaceMouseWheel">
-                    <controls:AutosizingCanvas.RenderTransform>
-                        <ScaleTransform x:Name="scaleTransform"/>
-                    </controls:AutosizingCanvas.RenderTransform>
-                    <controls:AutosizingCanvas.Background>
-                        <ImageBrush ImageSource="grid.png"/>
-                    </controls:AutosizingCanvas.Background>
-                </controls:AutosizingCanvas>
+            <controls:AutosizingCanvas x:Name="paintSurface"
+            			Cursor="Hand" MouseLeftButtonDown="DrawElement" MouseWheel="PaintSurfaceMouseWheel" MouseLeftButtonUp="PaintSurfaceMouseLeftButtonUp" MouseMove="PaintSurfaceMouseMove">
+                <controls:AutosizingCanvas.RenderTransform>
+                    <ScaleTransform x:Name="scaleTransform"/>
+                </controls:AutosizingCanvas.RenderTransform>
+                <controls:AutosizingCanvas.Background>
+                    <ImageBrush ImageSource="grid.png"/>
+                </controls:AutosizingCanvas.Background>
+            </controls:AutosizingCanvas>
         </Canvas>
         <Border HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="33">
-        	<Border.Background>
-        		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-        			<GradientStop Color="Black" Offset="0"/>
-        			<GradientStop Color="White" Offset="1"/>
-        		</LinearGradientBrush>
-        	</Border.Background>
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0"/>
+                    <GradientStop Color="White" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
         </Border>
         <Button Content="File" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Height="33" BorderThickness="0">
-        	<Button.Background>
-        		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-        			<GradientStop Color="Black" Offset="0"/>
-        			<GradientStop Color="White" Offset="1"/>
-        		</LinearGradientBrush>
-        	</Button.Background>
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0"/>
+                    <GradientStop Color="White" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
         </Button>
         <Button Content="Edit" HorizontalAlignment="Left" Margin="75,0,0,0" VerticalAlignment="Top" Width="75" Height="33" BorderThickness="0">
-        	<Button.Background>
-        		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-        			<GradientStop Color="Black" Offset="0"/>
-        			<GradientStop Color="White" Offset="1"/>
-        		</LinearGradientBrush>
-        	</Button.Background>
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0"/>
+                    <GradientStop Color="White" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
         </Button>
         <Button Content="Tools" HorizontalAlignment="Left" Margin="150,0,0,0" VerticalAlignment="Top" Width="75" Height="33" BorderThickness="0">
-        	<Button.Background>
-        		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-        			<GradientStop Color="Black" Offset="0"/>
-        			<GradientStop Color="White" Offset="1"/>
-        		</LinearGradientBrush>
-        	</Button.Background>
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0"/>
+                    <GradientStop Color="White" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
         </Button>
         <Button Content="Options" HorizontalAlignment="Left" Margin="225,0,0,0" VerticalAlignment="Top" Width="75" Height="33" BorderThickness="0">
-        	<Button.Background>
-        		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-        			<GradientStop Color="Black" Offset="0"/>
-        			<GradientStop Color="White" Offset="1"/>
-        		</LinearGradientBrush>
-        	</Button.Background>
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0"/>
+                    <GradientStop Color="White" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
         </Button>
         <Button Content="Help" HorizontalAlignment="Left" Margin="300,0,0,0" VerticalAlignment="Top" Width="75" Height="33" BorderThickness="0">
-        	<Button.Background>
-        		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-        			<GradientStop Color="Black" Offset="0"/>
-        			<GradientStop Color="White" Offset="1"/>
-        		</LinearGradientBrush>
-        	</Button.Background>
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0"/>
+                    <GradientStop Color="White" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
         </Button>
-        <Button Content="" HorizontalAlignment="Right" Margin="0,43,10,0" VerticalAlignment="Top" Width="30" Height="30" Click="ClearWorkspace" RenderTransformOrigin="0.394,2.394" Opacity="0.74" BorderBrush="#FFE6E6E6">
-        	<Button.Background>
-        		<ImageBrush ImageSource="rubber.jpg"/>
-        	</Button.Background>
-        	<Button.Effect>
-        		<DropShadowEffect Color="#FFA0A0A0" ShadowDepth="3"/>
-        	</Button.Effect>
+        <Button Content="" HorizontalAlignment="Right" Margin="0,43,10,0" 
+                VerticalAlignment="Top" Width="30" Height="30" 
+                Click="ClearWorkspace" RenderTransformOrigin="0.394,2.394" Opacity="0.74" BorderBrush="#FFE6E6E6">
+            <Button.Background>
+                <ImageBrush ImageSource="rubber.jpg"/>
+            </Button.Background>
+            <Button.Effect>
+                <DropShadowEffect Color="#FFA0A0A0" ShadowDepth="3"/>
+            </Button.Effect>
         </Button>
         <Button Content="X" HorizontalAlignment="Right" Height="33" VerticalAlignment="Top" Width="33" BorderThickness="0" Click="ExitApplication">
-        	<Button.Background>
-        		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-        			<GradientStop Color="Black" Offset="0"/>
-        			<GradientStop Color="White" Offset="1"/>
-        		</LinearGradientBrush>
-        	</Button.Background>
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0"/>
+                    <GradientStop Color="White" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
         </Button>
 
     </Grid>

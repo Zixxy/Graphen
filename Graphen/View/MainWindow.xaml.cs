@@ -26,15 +26,22 @@ namespace Graphen
         private Circle firstCircle;
         private Circle secondCircle;
 
+        private bool mouseCaptured;
+
+        private Point oldCursorPosition;
+        private double deltaX, deltaY;
+        private TranslateTransform translation;
         const double scaleRate = 1.1;
         public enum DrawingTool 
         {
-            DRAW_VERTEX, REMOVE_VERTEX, DRAW_EDGE, REMOVE_EDGE, SET_COLOR, VALIDATE
+            DRAW_VERTEX, REMOVE_VERTEX, DRAW_EDGE, REMOVE_EDGE, SET_COLOR, VALIDATE, DRAG_SURFACE
         }
         public DrawingTool CurrentTool { get; set; }
 
         public MainWindow()
         {
+            deltaX = deltaY = 0;
+            translation = new TranslateTransform(deltaX, deltaY);
             controller = new Controller();
             InitializeComponent();
         }
@@ -42,6 +49,7 @@ namespace Graphen
         {
             paintSurface.SetNominalSize(paintSurfaceSurround.ActualWidth, paintSurfaceSurround.ActualHeight);
             paintSurface.EnsureSize();
+            controller.ApplyTranslateTransformToEachElement(translation);
         }
         private void PaintSurfaceMouseWheel(object sender, MouseWheelEventArgs e)
         {
@@ -79,7 +87,7 @@ namespace Graphen
 
         private void ArrangeVertices(object sender, RoutedEventArgs e)
         {
-            Thread execute = new Thread(controller.ArrangeVertices);
+            Thread execute = new Thread(controller.ArrangeVertices);//maybe daemon?
             execute.Start();
         }
 
@@ -93,9 +101,34 @@ namespace Graphen
             Application.Current.Shutdown();
         }
 
+        private void DragSurface(object sender, RoutedEventArgs e)
+        {
+            CurrentTool = DrawingTool.DRAG_SURFACE;
+        }
+
+        private void PaintSurfaceMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (CurrentTool == DrawingTool.DRAG_SURFACE)
+                mouseCaptured = false;
+            controller.UpdateEveryElementPosition(deltaX, deltaY);
+            translation.X = translation.Y = 0;
+            deltaX = deltaY = 0;
+        }
+        private void PaintSurfaceMouseMove(object sender, MouseEventArgs e)
+        {
+            if (mouseCaptured && DrawingTool.DRAG_SURFACE == CurrentTool)
+            {
+                Point mousePosition = Mouse.GetPosition(paintSurface);
+                deltaX += mousePosition.X - oldCursorPosition.X;
+                deltaY += mousePosition.Y - oldCursorPosition.Y;
+                translation.X = deltaX;
+                translation.Y = deltaY;
+                oldCursorPosition = mousePosition;
+            }
+        }
         private void DrawElement(object sender, MouseButtonEventArgs e)
         {
-            System.Windows.Point position = Mouse.GetPosition(paintSurface);// System.Windows.Forms.Control.MousePosition;
+            Point position = Mouse.GetPosition(paintSurface);// System.Windows.Forms.Control.MousePosition;
             switch (CurrentTool)
             {
                 case DrawingTool.DRAW_VERTEX:
@@ -127,13 +160,19 @@ namespace Graphen
                         throw new NotImplementedException();
                        // break;
                     }
+                case DrawingTool.DRAG_SURFACE:
+                    {
+                        mouseCaptured = true;
+                        oldCursorPosition = position;
+                        break;
+                    }
                 default:
                     throw new ArgumentException("Invalid DrawTool:" + CurrentTool + "picked"); 
 
             }
         }
 
-        private void CreateVertex(System.Windows.Point position)
+        private void CreateVertex(Point position)
         {
             Circle circle = new Circle(position);
             controller.AddVertex(circle);
@@ -164,10 +203,10 @@ namespace Graphen
                     }
                 };
             ellipse.MouseLeave += (object o, MouseEventArgs e) =>
-            {   
-                ellipse.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 150, 0));
-            };
-
+                {   
+                    ellipse.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 150, 0));
+                };
+            ellipse.RenderTransform = translation;
             paintSurface.Children.Add(ellipse);
         }
 
@@ -202,12 +241,12 @@ namespace Graphen
             secondCircle = null;
         }
 
-        private void RemoveVertex(System.Windows.Point position)
+        private void RemoveVertex(Point position)
         {
             controller.RemoveVertex(position, this);
         }
 
-        public void RemoveElementFromSurface(System.Windows.UIElement element)
+        public void RemoveElementFromSurface(UIElement element)
         {
             paintSurface.Children.Remove(element);
         }
