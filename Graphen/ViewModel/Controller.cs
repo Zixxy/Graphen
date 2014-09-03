@@ -64,6 +64,10 @@ namespace Graphen.ViewModel
             {
                 i.ellipse.RenderTransform = transf;
             }
+            foreach (System.Windows.Shapes.Line l in edges.Values)
+            {
+                l.RenderTransform = transf;
+            }
         }
 
         public void UpdateEveryElementPosition(double deltaX, double deltaY)
@@ -71,6 +75,13 @@ namespace Graphen.ViewModel
             foreach (Circle i in vertices.Keys)
             {
                 i.Position = new System.Windows.Point(i.Position.X + deltaX, i.Position.Y + deltaY);
+            }
+            foreach (System.Windows.Shapes.Line l in edges.Values)
+            {
+                l.X1 += deltaX;
+                l.X2 += deltaX;
+                l.Y1 += deltaY;
+                l.Y2 += deltaY;
             }
         }
 

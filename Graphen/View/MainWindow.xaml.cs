@@ -236,6 +236,8 @@ namespace Graphen
                         controller.RemoveEdge(a as System.Windows.Shapes.Line, this);
                     }
                 };
+
+                line.RenderTransform = translation;
             }
             firstCircle = null;
             secondCircle = null;
