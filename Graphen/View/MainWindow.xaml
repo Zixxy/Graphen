@@ -1,8 +1,12 @@
 ﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Name="MainPanel" x:Class="Graphen.MainWindow"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="clr-namespace:Graphen.View"
+        mc:Ignorable="d" x:Name="MainPanel" x:Class="Graphen.MainWindow"
         Title="Graphen" Height="412.971" Width="672.803"
+        Loaded="Window_Loaded"
         WindowStartupLocation="CenterScreen" WindowStyle="None" WindowState="Maximized">
     <Grid x:Name="MainGrid" DataContext="{Binding Logic}" Cursor="Hand">
         <Menu HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="118" ClipToBounds="True" Margin="0,33,0,10">
@@ -14,10 +18,16 @@
             <MenuItem Header="Validate" Height="35" Width="118"/>
             <MenuItem Header="Arrange" Height="35" Width="118" Click="ArrangeVertices"/>
         </Menu>
-        <Canvas x:Name="paintSurface" HorizontalAlignment="Stretch" Margin="118,33,0,0" VerticalAlignment="Stretch" Cursor="Hand" MouseLeftButtonDown="DrawElement">
-        	<Canvas.Background>
-        		<ImageBrush ImageSource="grid.png"/>
-        	</Canvas.Background>
+        <Canvas x:Name = "paintSurfaceSurround" Margin="118,33,0,0">
+                <controls:AutosizingCanvas x:Name="paintSurface"
+            			Cursor="Hand" MouseLeftButtonDown="DrawElement" MouseWheel="PaintSurfaceMouseWheel">
+                    <controls:AutosizingCanvas.RenderTransform>
+                        <ScaleTransform x:Name="scaleTransform"/>
+                    </controls:AutosizingCanvas.RenderTransform>
+                    <controls:AutosizingCanvas.Background>
+                        <ImageBrush ImageSource="grid.png"/>
+                    </controls:AutosizingCanvas.Background>
+                </controls:AutosizingCanvas>
         </Canvas>
         <Border HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="33">
         	<Border.Background>

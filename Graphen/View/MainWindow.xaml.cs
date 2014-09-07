@@ -26,6 +26,7 @@ namespace Graphen
         private Circle firstCircle;
         private Circle secondCircle;
 
+        const double scaleRate = 1.1;
         public enum DrawingTool 
         {
             DRAW_VERTEX, REMOVE_VERTEX, DRAW_EDGE, REMOVE_EDGE, SET_COLOR, VALIDATE
@@ -37,7 +38,25 @@ namespace Graphen
             controller = new Controller();
             InitializeComponent();
         }
-
+        public void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            paintSurface.SetNominalSize(paintSurfaceSurround.ActualWidth, paintSurfaceSurround.ActualHeight);
+            paintSurface.EnsureSize();
+        }
+        private void PaintSurfaceMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (e.Delta > 0)
+            {
+                scaleTransform.ScaleX *= scaleRate;
+                scaleTransform.ScaleY *= scaleRate;
+            }
+            else
+            {
+                scaleTransform.ScaleX /= scaleRate;
+                scaleTransform.ScaleY /= scaleRate;
+            }
+            paintSurface.EnsureSize();
+        }
         private void PickCircleTool(object sender, RoutedEventArgs e)
         {
             CurrentTool = DrawingTool.DRAW_VERTEX;
