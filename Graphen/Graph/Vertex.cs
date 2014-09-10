@@ -11,7 +11,7 @@ namespace Graphen.Graph
         //Helps to give default names for edges
         private static ulong defaultVertexID = 0;
 
-        private readonly ulong vertexID;
+        public readonly ulong vertexID;
         private ICollection<Edge> adjacentEdges;
 
         public String Label { get; private set; }
