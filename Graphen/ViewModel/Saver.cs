@@ -14,7 +14,7 @@ namespace Graphen.ViewModel
         internal static bool SaveGraph(Graphen.Graph.Graph graph, Dictionary<Circle, Vertex> verticesMap, String fileName)
         {
             Tuple<int, int> verticesAndEgesAmount = Tuple.Create<int, int>(graph.GetVerticesAmount(), graph.GetEdgesAmount());
-            List<Tuple<ulong, ulong>> edgesAsList = getEdgesAsList(graph.Edges);
+            List<Tuple<ulong, ulong>> edgesAsList = GetEdgesAsList(graph.Edges);
             List<Tuple<System.Windows.Point, ulong>> verticeToSerialize = GetVericesToCircleMapAsList(verticesMap);
 
             try
@@ -55,7 +55,7 @@ namespace Graphen.ViewModel
             }
         }
 
-        private static List<Tuple<ulong, ulong>> getEdgesAsList(IEnumerable<Edge> edges)
+        private static List<Tuple<ulong, ulong>> GetEdgesAsList(IEnumerable<Edge> edges)
         {
             List<Tuple<ulong, ulong>> resultEdgesList = new List<Tuple<ulong,ulong>>();
             foreach (Edge e in edges) {
