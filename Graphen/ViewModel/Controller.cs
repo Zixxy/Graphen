@@ -28,9 +28,9 @@ namespace Graphen.ViewModel
             remove { }
         }
 
-        public void SaveGraph()
+        public void SaveGraph(String fileName)
         {
-            Saver.SaveGraph(graph, vertices);
+            Saver.SaveGraph(graph, vertices, fileName);
         }
 
         public void LoadGraph(String fileName, MainWindow view)

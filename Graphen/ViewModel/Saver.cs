@@ -11,7 +11,7 @@ namespace Graphen.ViewModel
 {
     internal static class Saver
     {
-        internal static bool SaveGraph(Graphen.Graph.Graph graph, Dictionary<Circle, Vertex> verticesMap)
+        internal static bool SaveGraph(Graphen.Graph.Graph graph, Dictionary<Circle, Vertex> verticesMap, String fileName)
         {
             Tuple<int, int> verticesAndEgesAmount = Tuple.Create<int, int>(graph.GetVerticesAmount(), graph.GetEdgesAmount());
             List<Tuple<ulong, ulong>> edgesAsList = getEdgesAsList(graph.Edges);
@@ -19,7 +19,7 @@ namespace Graphen.ViewModel
 
             try
             {
-                using (Stream stream = File.Open("data.bin", FileMode.Create))
+                using (Stream stream = File.Open(fileName, FileMode.Create))
                 {
                     BinaryFormatter bin = new BinaryFormatter();
                     bin.Serialize(stream, verticesAndEgesAmount);

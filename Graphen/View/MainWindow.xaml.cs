@@ -96,13 +96,33 @@ namespace Graphen
         private void SaveGraph(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("Saving graph");
-            controller.SaveGraph();
+            Microsoft.Win32.SaveFileDialog saveFileDialog = new Microsoft.Win32.SaveFileDialog();
+            saveFileDialog.FileName = "Graph";
+            saveFileDialog.DefaultExt = ".gph";
+            saveFileDialog.Filter = "Graph documents (.gph)|*.gph";
+
+            Nullable<bool> dialogResult = saveFileDialog.ShowDialog();
+
+            if (dialogResult == true)
+            {
+                controller.SaveGraph(saveFileDialog.FileName);
+            }
         }
 
         private void OpenGraph(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("Loading graph");
-            controller.LoadGraph("data.bin", this);
+            Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
+            openFileDialog.FileName = "Graph";
+            openFileDialog.DefaultExt = ".gph";
+            openFileDialog.Filter = "Graph documents (.gph)|*.gph";
+
+            Nullable<bool> dialogResult = openFileDialog.ShowDialog();
+
+            if (dialogResult == true)
+            {
+                controller.LoadGraph(openFileDialog.FileName, this);
+            }
         }
 
         private void DrawElement(object sender, MouseButtonEventArgs e)

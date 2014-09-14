@@ -7,7 +7,7 @@
         mc:Ignorable="d" x:Name="MainPanel" x:Class="Graphen.MainWindow"
         Title="Graphen" Height="412.971" Width="672.803"
         Loaded="Window_Loaded"
-        WindowStartupLocation="CenterScreen" WindowStyle="None" WindowState="Maximized">
+        WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow" WindowState="Maximized">
     <Grid x:Name="MainGrid" DataContext="{Binding Logic}" Cursor="Hand">
     	<Grid.ColumnDefinitions>
     		<ColumnDefinition Width="2*"/>
