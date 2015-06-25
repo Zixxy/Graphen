@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Graphen.Graph.Traverse;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,11 @@ namespace Graphen.Graph
         {
             vertices = new List<Vertex>();
             edges = new List<Edge>();
+        }
+
+        public ICollection<Vertex> getVertices()
+        {
+            return vertices;
         }
 
         public Vertex this[int index]
@@ -127,6 +133,15 @@ namespace Graphen.Graph
         public int GetEdgesAmount()
         {
             return edges.Count;
+        }
+
+        public void traverse(ITraversableStrategy strategy)
+        {
+            while (strategy.hasNextVertex())
+            {
+                Vertex v = strategy.getNextVertex();
+                strategy.visitVertex(v);
+            }
         }
     }
 }
