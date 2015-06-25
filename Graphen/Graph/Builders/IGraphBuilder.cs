@@ -8,8 +8,8 @@ namespace Graphen.Graph.Builders
 {
     interface IGraphBuilder
     {
-        public IGraphBuilder addVertex();
-        public IGraphBuilder addEdge(int firstId, int secondId);
-        public Graph build();
+        IGraphBuilder addVertex();
+        IGraphBuilder addEdge(int firstId, int secondId);
+        Graph build();
     }
 }

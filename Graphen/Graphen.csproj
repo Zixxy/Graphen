@@ -63,7 +63,8 @@
     <Compile Include="Graph\Builders\SafeBuilder.cs" />
     <Compile Include="Graph\Edge.cs" />
     <Compile Include="Graph\Graph.cs" />
-    <Compile Include="Graph\Traverse\TraverseStrategy.cs" />
+    <Compile Include="Graph\Traverse\ITraversableStrategy.cs" />
+    <Compile Include="Graph\Traverse\RandomWalkStrategy.cs" />
     <Compile Include="Graph\Vertex.cs" />
     <Compile Include="ViewModel\Circle.cs" />
     <Compile Include="ViewModel\Controller.cs" />

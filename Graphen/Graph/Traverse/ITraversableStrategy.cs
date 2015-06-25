@@ -8,10 +8,10 @@ namespace Graphen.Graph.Traverse
 {
     interface ITraversableStrategy
     {
-        public bool hasNextVertex();
+        bool hasNextVertex();
 
-        public Vertex getNextVertex();
+        Vertex getNextVertex();
 
-        public void visitVertex(Vertex v);
+        void visitVertex(Vertex v);
     }
 }
