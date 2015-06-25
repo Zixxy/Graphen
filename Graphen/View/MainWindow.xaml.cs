@@ -93,6 +93,38 @@ namespace Graphen
             Application.Current.Shutdown();
         }
 
+        private void SaveGraph(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("Saving graph");
+            Microsoft.Win32.SaveFileDialog saveFileDialog = new Microsoft.Win32.SaveFileDialog();
+            saveFileDialog.FileName = "Graph";
+            saveFileDialog.DefaultExt = ".gph";
+            saveFileDialog.Filter = "Graph documents (.gph)|*.gph";
+
+            Nullable<bool> dialogResult = saveFileDialog.ShowDialog();
+
+            if (dialogResult == true)
+            {
+                controller.SaveGraph(saveFileDialog.FileName);
+            }
+        }
+
+        private void OpenGraph(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("Loading graph");
+            Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
+            openFileDialog.FileName = "Graph";
+            openFileDialog.DefaultExt = ".gph";
+            openFileDialog.Filter = "Graph documents (.gph)|*.gph";
+
+            Nullable<bool> dialogResult = openFileDialog.ShowDialog();
+
+            if (dialogResult == true)
+            {
+                controller.LoadGraph(openFileDialog.FileName, this);
+            }
+        }
+
         private void DrawElement(object sender, MouseButtonEventArgs e)
         {
             System.Windows.Point position = Mouse.GetPosition(paintSurface);// System.Windows.Forms.Control.MousePosition;
@@ -133,7 +165,7 @@ namespace Graphen
             }
         }
 
-        private void CreateVertex(System.Windows.Point position)
+        private Circle CreateVertex(System.Windows.Point position)
         {
             Circle circle = new Circle(position);
             controller.AddVertex(circle);
@@ -169,6 +201,7 @@ namespace Graphen
             };
 
             paintSurface.Children.Add(ellipse);
+            return circle;
         }
 
         private void CreateEdge()
@@ -210,6 +243,24 @@ namespace Graphen
         public void RemoveElementFromSurface(System.Windows.UIElement element)
         {
             paintSurface.Children.Remove(element);
+        }
+
+        public Dictionary<ulong, Circle> RestoreVertices(List<Tuple<System.Windows.Point, ulong>> verticesMap)
+        {
+            Dictionary<ulong, Circle> verticesToCircle = new Dictionary<ulong, Circle>();
+            foreach (Tuple<System.Windows.Point, ulong> circleToVertex in verticesMap)
+            {
+                Circle circle = CreateVertex(circleToVertex.Item1);
+                verticesToCircle.Add(circleToVertex.Item2, circle);
+            }
+            return verticesToCircle;
+        }
+
+        public void RestoreEdge(Circle one, Circle two)
+        {
+            firstCircle = one;
+            secondCircle = two;
+            CreateEdge();
         }
     }
 }

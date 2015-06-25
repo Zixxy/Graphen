@@ -7,9 +7,13 @@
         mc:Ignorable="d" x:Name="MainPanel" x:Class="Graphen.MainWindow"
         Title="Graphen" Height="412.971" Width="672.803"
         Loaded="Window_Loaded"
-        WindowStartupLocation="CenterScreen" WindowStyle="None" WindowState="Maximized">
+        WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow" WindowState="Maximized">
     <Grid x:Name="MainGrid" DataContext="{Binding Logic}" Cursor="Hand">
-        <Menu HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="118" ClipToBounds="True" Margin="0,33,0,10">
+    	<Grid.ColumnDefinitions>
+    		<ColumnDefinition Width="2*"/>
+    		<ColumnDefinition Width="663*"/>
+    	</Grid.ColumnDefinitions>
+        <Menu HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="118" ClipToBounds="True" Margin="0,33,0,10" Grid.ColumnSpan="2">
             <MenuItem x:Name="Draw" Header="Add Vertex" Height="35" Width="118" HorizontalAlignment="Center" VerticalAlignment="Center" Click="PickCircleTool"/>
             <MenuItem Header="Remove Vertex" Height="35" Width="118" HorizontalAlignment="Center" VerticalAlignment="Center" Click="PickRemoveVertexTool"/>
             <MenuItem Header="Add Edge" Height="35" Width="118" Click="PickEdgeTool"/>
@@ -18,7 +22,7 @@
             <MenuItem Header="Validate" Height="35" Width="118"/>
             <MenuItem Header="Arrange" Height="35" Width="118" Click="ArrangeVertices"/>
         </Menu>
-        <Canvas x:Name = "paintSurfaceSurround" Margin="118,33,0,0">
+        <Canvas x:Name = "paintSurfaceSurround" Margin="116,33,0,0" Grid.Column="1">
                 <controls:AutosizingCanvas x:Name="paintSurface"
             			Cursor="Hand" MouseLeftButtonDown="DrawElement" MouseWheel="PaintSurfaceMouseWheel">
                     <controls:AutosizingCanvas.RenderTransform>
@@ -29,55 +33,7 @@
                     </controls:AutosizingCanvas.Background>
                 </controls:AutosizingCanvas>
         </Canvas>
-        <Border HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="33">
-        	<Border.Background>
-        		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-        			<GradientStop Color="Black" Offset="0"/>
-        			<GradientStop Color="White" Offset="1"/>
-        		</LinearGradientBrush>
-        	</Border.Background>
-        </Border>
-        <Button Content="File" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Height="33" BorderThickness="0">
-        	<Button.Background>
-        		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-        			<GradientStop Color="Black" Offset="0"/>
-        			<GradientStop Color="White" Offset="1"/>
-        		</LinearGradientBrush>
-        	</Button.Background>
-        </Button>
-        <Button Content="Edit" HorizontalAlignment="Left" Margin="75,0,0,0" VerticalAlignment="Top" Width="75" Height="33" BorderThickness="0">
-        	<Button.Background>
-        		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-        			<GradientStop Color="Black" Offset="0"/>
-        			<GradientStop Color="White" Offset="1"/>
-        		</LinearGradientBrush>
-        	</Button.Background>
-        </Button>
-        <Button Content="Tools" HorizontalAlignment="Left" Margin="150,0,0,0" VerticalAlignment="Top" Width="75" Height="33" BorderThickness="0">
-        	<Button.Background>
-        		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-        			<GradientStop Color="Black" Offset="0"/>
-        			<GradientStop Color="White" Offset="1"/>
-        		</LinearGradientBrush>
-        	</Button.Background>
-        </Button>
-        <Button Content="Options" HorizontalAlignment="Left" Margin="225,0,0,0" VerticalAlignment="Top" Width="75" Height="33" BorderThickness="0">
-        	<Button.Background>
-        		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-        			<GradientStop Color="Black" Offset="0"/>
-        			<GradientStop Color="White" Offset="1"/>
-        		</LinearGradientBrush>
-        	</Button.Background>
-        </Button>
-        <Button Content="Help" HorizontalAlignment="Left" Margin="300,0,0,0" VerticalAlignment="Top" Width="75" Height="33" BorderThickness="0">
-        	<Button.Background>
-        		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-        			<GradientStop Color="Black" Offset="0"/>
-        			<GradientStop Color="White" Offset="1"/>
-        		</LinearGradientBrush>
-        	</Button.Background>
-        </Button>
-        <Button Content="" HorizontalAlignment="Right" Margin="0,43,10,0" VerticalAlignment="Top" Width="30" Height="30" Click="ClearWorkspace" RenderTransformOrigin="0.394,2.394" Opacity="0.74" BorderBrush="#FFE6E6E6">
+        <Button Content="" HorizontalAlignment="Right" Margin="0,43,10,0" VerticalAlignment="Top" Width="30" Height="30" Click="ClearWorkspace" RenderTransformOrigin="0.394,2.394" Opacity="0.74" BorderBrush="#FFE6E6E6" Grid.Column="1">
         	<Button.Background>
         		<ImageBrush ImageSource="rubber.jpg"/>
         	</Button.Background>
@@ -85,14 +41,17 @@
         		<DropShadowEffect Color="#FFA0A0A0" ShadowDepth="3"/>
         	</Button.Effect>
         </Button>
-        <Button Content="X" HorizontalAlignment="Right" Height="33" VerticalAlignment="Top" Width="33" BorderThickness="0" Click="ExitApplication">
-        	<Button.Background>
-        		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-        			<GradientStop Color="Black" Offset="0"/>
-        			<GradientStop Color="White" Offset="1"/>
-        		</LinearGradientBrush>
-        	</Button.Background>
-        </Button>
+        <Button Content="X" HorizontalAlignment="Right" Height="33" VerticalAlignment="Top" Width="33" BorderThickness="0" Click="ExitApplication" Grid.Column="1" Panel.ZIndex="5" BorderBrush="Transparent" Background="Transparent" Foreground="#FF212121"/>
+        <Menu HorizontalAlignment="Stretch" Height="33" VerticalAlignment="Top" IsMainMenu="True" BorderBrush="Transparent" Foreground="#FF212121" Grid.Column="0" Grid.ColumnSpan="2" ClipToBounds="True" Background="#FF9B9B9B">
+        	<MenuItem Header="_File" Height="33">
+				<MenuItem Header="_Save" Click="SaveGraph"/>
+                <MenuItem Header="_Open" Click="OpenGraph"/>
+			</MenuItem>
+        	<MenuItem Header="_Edit"/>
+        	<MenuItem Header="_Tools"/>
+        	<MenuItem Header="_Options"/>
+        	<MenuItem Header="_Help" Height="33"/>
+        </Menu>
 
     </Grid>
 </Window>

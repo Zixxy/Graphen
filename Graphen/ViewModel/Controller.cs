@@ -18,7 +18,7 @@ namespace Graphen.ViewModel
         internal Controller()
         {
             graph = new Graph.Graph();
-            vertices = new Dictionary<Circle,Vertex>();
+            vertices = new Dictionary<Circle, Vertex>();
             edges = new Dictionary<Edge, System.Windows.Shapes.Line>();
         }
 
@@ -26,6 +26,26 @@ namespace Graphen.ViewModel
         {
             add {  }
             remove { }
+        }
+
+        public void SaveGraph(String fileName)
+        {
+            Saver.SaveGraph(graph, vertices, fileName);
+        }
+
+        public void LoadGraph(String fileName, MainWindow view)
+        {
+            Saver.LoadGraph(fileName, this, view);
+        }
+
+        internal void RecounstructGraphFromFile(Tuple<int, int> verticesAndEgesAmount, List<Tuple<ulong, ulong>> edgesAsList, List<Tuple<System.Windows.Point, ulong>> verticesMap, MainWindow view)  
+        {
+            CleanGraph(view);
+            Dictionary<ulong, Circle> verticesToCircle = view.RestoreVertices(verticesMap);
+            foreach (Tuple<ulong, ulong> edge in edgesAsList)
+            {
+                view.RestoreEdge(verticesToCircle[edge.Item1], verticesToCircle[edge.Item2]);
+            }
         }
 
         public void AddVertex(Circle circle)
