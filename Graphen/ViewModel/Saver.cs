@@ -9,11 +9,26 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Graphen.ViewModel
 {
-    internal static class Saver
+    public interface ICommand
     {
-        internal static bool SaveGraph(Graphen.Graph.Graph graph, Dictionary<Circle, Vertex> verticesMap, String fileName)
+        bool Execute();
+    }
+
+    public class Saver
+    {
+        private ICommand saveCommand;
+        private ICommand loadCommand;
+
+        public Saver(ICommand saveCommand, ICommand loadCommand)
         {
-            Tuple<int, int> verticesAndEgesAmount = Tuple.Create<int, int>(graph.GetVerticesAmount(), graph.GetEdgesAmount());
+            this.saveCommand = saveCommand;
+            this.loadCommand = loadCommand;
+        }
+
+        internal bool SaveGraph(Graphen.Graph.Graph graph, Dictionary<Circle, Vertex> verticesMap, String fileName)
+        {
+            return saveCommand.Execute();
+            /*Tuple<int, int> verticesAndEgesAmount = Tuple.Create<int, int>(graph.GetVerticesAmount(), graph.GetEdgesAmount());
             List<Tuple<ulong, ulong>> edgesAsList = GetEdgesAsList(graph.Edges);
             List<Tuple<System.Windows.Point, ulong>> verticeToSerialize = GetVericesToCircleMapAsList(verticesMap);
 
@@ -33,12 +48,13 @@ namespace Graphen.ViewModel
                 return false;
             }
 
-            return true;
+            return true;*/
         }
 
-        internal static void LoadGraph(String fileName, Controller controller, MainWindow view)
+        internal bool LoadGraph(String fileName, Controller controller, MainWindow view)
         {
-            try
+            return loadCommand.Execute();
+            /*try
             {
                 using (Stream stream = File.Open(fileName, FileMode.Open))
                 {
@@ -52,7 +68,7 @@ namespace Graphen.ViewModel
             catch (IOException e)
             {
                 Console.WriteLine(e.StackTrace);
-            }
+            }*/
         }
 
         private static List<Tuple<ulong, ulong>> GetEdgesAsList(IEnumerable<Edge> edges)
