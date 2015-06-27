@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Graphen.Graph
 {
-    class Graph
+    public class Graph
     {
         private ICollection<Vertex> vertices;
         private ICollection<Edge> edges;

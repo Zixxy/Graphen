@@ -91,7 +91,7 @@
       <FileName>ViewModel\ControlExtensions.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Graphen.ViewModel.Controller" Collapsed="true" BaseTypeListCollapsed="true">
+  <Class Name="Graphen.ViewModel.Controller" BaseTypeListCollapsed="true">
     <Position X="7.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAEAACAAIAAQAAACCAACAABiAAYACAAAAAAAAAAAAI=</HashCode>
@@ -107,7 +107,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Graphen.ViewModel.SaveCommand" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="7.5" Y="2.5" Width="1.5" />
+    <Position X="7.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAIAQCAAAAAAAACAAACAAAAEAAAAAAAAA=</HashCode>
       <FileName>ViewModel\Saver.cs</FileName>

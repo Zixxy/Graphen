@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Graphen.Graph.Traverse
 {
-    interface ITraversableStrategy
+    public interface ITraversableStrategy
     {
         bool hasNextVertex();
 
