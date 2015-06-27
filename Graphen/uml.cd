@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Graphen.App" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Graphen.MainWindow" Collapsed="true">
+    <Position X="5.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EBAAgACAAQAAAAEAAIAQAAkBAAAgBEAAABAAASAABAI=</HashCode>
+      <FileName>View\MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Graphen.MenuWindow" Collapsed="true">
+    <Position X="7.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAAAAAAAAACCAAAAAAAAAAAA=</HashCode>
+      <FileName>View\Menu.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Graphen.Graph.Builders.SafeBuilder" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAIAAAAAAAAAAAAIAAQAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>Graph\Builders\SafeBuilder.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Graphen.Graph.Edge" Collapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAQAEgAAAAAIAAAAAAIAAAAAAAAAAAiA=</HashCode>
+      <FileName>Graph\Edge.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Graphen.Graph.Graph" Collapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAEgAAAAIABAAAECCAAAAABAAAQACAAUAAAIABAAAA=</HashCode>
+      <FileName>Graph\Graph.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Graphen.Graph.Vertex" Collapsed="true">
+    <Position X="4" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAGAAAAEAAAEAAEiAAAAAAAAAAAAoAAAAAIAABAEiA=</HashCode>
+      <FileName>Graph\Vertex.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Graphen.Graph.Traverse.RandomWalkStrategy" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="2.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAMAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Graph\Traverse\RandomWalkStrategy.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Graphen.Properties.Resources" Collapsed="true">
+    <Position X="4" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Graphen.Properties.Settings" Collapsed="true">
+    <Position X="2.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Graphen.View.AutosizingCanvas" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAEAACAAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>View\AutosizingCanvas.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Graphen.ViewModel.Circle" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAoAAAAIKAAAAAgkgABQIAAAAAAAAoAAAAAAAAAAAjA=</HashCode>
+      <FileName>ViewModel\Circle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Graphen.ViewModel.ControlExtensions" Collapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\ControlExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Graphen.ViewModel.Controller" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAACAAIAAQAAACCAACAABiAAYACAAAAAAAAAAAAI=</HashCode>
+      <FileName>ViewModel\Controller.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Graphen.ViewModel.Physics" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABABAAAAAAAAAAAAAAgAAACAAAAIAAEAAAA=</HashCode>
+      <FileName>ViewModel\Physics.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Graphen.ViewModel.SaveCommand" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAQCAAAAAAAACAAACAAAAEAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\Saver.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Graphen.ViewModel.LoadCommand" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAUAAAAAAAAAAAAAAAAAAUAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\Saver.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Graphen.ViewModel.Saver" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAAAAAAAEAAAAAAAIAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>ViewModel\Saver.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Graphen.Graph.Builders.IGraphBuilder" Collapsed="true">
+    <Position X="2.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAIAAAAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>Graph\Builders\IGraphBuilder.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Graphen.Graph.Traverse.ITraversableStrategy" Collapsed="true">
+    <Position X="4" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Graph\Traverse\ITraversableStrategy.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Graphen.ViewModel.ICommand" Collapsed="true">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\Saver.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
