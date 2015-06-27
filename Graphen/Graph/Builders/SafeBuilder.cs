@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Graphen.Graph.Builders
 {
-    class SafeBuilder : IGraphBuilder
+    public class SafeBuilder : IGraphBuilder
     {
         private ICollection<Vertex> vertices;
         private ICollection<Tuple<int, int>> edges;

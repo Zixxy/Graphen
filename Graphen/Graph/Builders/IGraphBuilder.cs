@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Graphen.Graph.Builders
 {
-    interface IGraphBuilder
+    public interface IGraphBuilder
     {
         IGraphBuilder addVertex();
         IGraphBuilder addEdge(int firstId, int secondId);

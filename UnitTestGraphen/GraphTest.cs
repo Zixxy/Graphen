@@ -57,8 +57,17 @@ namespace UnitTestGraphen
             int i = 0;
             foreach (Vertex v in graph.Vertices)
             {
-                Assert.AreEqual(vArr[i], v);
+                Assert.AreEqual(vArr[i++], v);
             }
         }
+
+        [TestMethod]
+        public void BuilderTest()
+        {
+            Graph g = new Graphen.Graph.Builders.SafeBuilder().addVertex().addVertex().addVertex()
+                .addEdge(0, 1).addEdge(0, 1).addEdge(1, 0).addEdge(2, 1).build();
+            Assert.AreEqual(2, g.GetEdgesAmount());
+        }
+
     }
 }
