@@ -56,7 +56,7 @@
       <HashCode>AAAAAAAAMAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAQAAA=</HashCode>
       <FileName>Graph\Traverse\RandomWalkStrategy.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.148" Collapsed="true" />
   </Class>
   <Class Name="Graphen.Properties.Resources" Collapsed="true">
     <Position X="4" Y="2.5" Width="1.5" />
@@ -65,7 +65,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Graphen.Properties.Settings" Collapsed="true">
-    <Position X="2.25" Y="3.5" Width="1.5" />
+    <Position X="2.25" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
