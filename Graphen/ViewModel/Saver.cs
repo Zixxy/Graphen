@@ -14,21 +14,19 @@ namespace Graphen.ViewModel
         bool Execute();
     }
 
-    public class Saver
-    {
-        private ICommand saveCommand;
-        private ICommand loadCommand;
+    public class SaveCommand : ICommand {
+        Graphen.Graph.Graph graph;
+        Dictionary<Circle, Vertex> verticesMap;
+        String fileName;
 
-        public Saver(ICommand saveCommand, ICommand loadCommand)
-        {
-            this.saveCommand = saveCommand;
-            this.loadCommand = loadCommand;
+        internal SaveCommand(Graphen.Graph.Graph graph, Dictionary<Circle, Vertex> verticesMap, String fileName) {
+            this.graph = graph;
+            this.verticesMap = verticesMap;
+            this.fileName = fileName;
         }
 
-        internal bool SaveGraph(Graphen.Graph.Graph graph, Dictionary<Circle, Vertex> verticesMap, String fileName)
-        {
-            return saveCommand.Execute();
-            /*Tuple<int, int> verticesAndEgesAmount = Tuple.Create<int, int>(graph.GetVerticesAmount(), graph.GetEdgesAmount());
+        public bool Execute() {
+            Tuple<int, int> verticesAndEgesAmount = Tuple.Create<int, int>(graph.GetVerticesAmount(), graph.GetEdgesAmount());
             List<Tuple<ulong, ulong>> edgesAsList = GetEdgesAsList(graph.Edges);
             List<Tuple<System.Windows.Point, ulong>> verticeToSerialize = GetVericesToCircleMapAsList(verticesMap);
 
@@ -48,13 +46,43 @@ namespace Graphen.ViewModel
                 return false;
             }
 
-            return true;*/
+            return true;
         }
 
-        internal bool LoadGraph(String fileName, Controller controller, MainWindow view)
+        private List<Tuple<System.Windows.Point, ulong>> GetVericesToCircleMapAsList(Dictionary<Circle, Vertex> verticesMap)
         {
-            return loadCommand.Execute();
-            /*try
+            List<Tuple<System.Windows.Point, ulong>> verticesToSerialize = new List<Tuple<System.Windows.Point, ulong>>();
+            foreach (Circle circle in verticesMap.Keys)
+            {
+                verticesToSerialize.Add(Tuple.Create<System.Windows.Point, ulong>(circle.Position, verticesMap[circle].vertexID));
+            }
+
+            return verticesToSerialize;
+        }
+
+        private List<Tuple<ulong, ulong>> GetEdgesAsList(IEnumerable<Edge> edges)
+        {
+            List<Tuple<ulong, ulong>> resultEdgesList = new List<Tuple<ulong,ulong>>();
+            foreach (Edge e in edges) {
+                resultEdgesList.Add(Tuple.Create<ulong, ulong>(e.First.vertexID, e.Second.vertexID));
+            }
+            return resultEdgesList;
+        }
+    }
+
+    public class LoadCommand : ICommand {
+        String fileName;
+        Controller controller;
+        MainWindow view;
+
+        public LoadCommand(String fileName, Controller controller, MainWindow view) {
+            this.fileName = fileName;
+            this.controller = controller;
+            this.view = view;
+        }
+
+        public bool Execute() {
+             try
             {
                 using (Stream stream = File.Open(fileName, FileMode.Open))
                 {
@@ -64,31 +92,35 @@ namespace Graphen.ViewModel
                     List<Tuple<System.Windows.Point, ulong>> verticesMap = (List<Tuple<System.Windows.Point, ulong>>) bin.Deserialize(stream);
                     controller.RecounstructGraphFromFile(verticesAndEgesAmount, edgesAsList, verticesMap, view);
                 }
+                 return true;
             }
             catch (IOException e)
             {
                 Console.WriteLine(e.StackTrace);
-            }*/
+                return false;
+            }
+        }
+    }
+
+    public class Saver
+    {
+        private ICommand saveCommand;
+        private ICommand loadCommand;
+
+        public Saver(ICommand saveCommand, ICommand loadCommand)
+        {
+            this.saveCommand = saveCommand;
+            this.loadCommand = loadCommand;
         }
 
-        private static List<Tuple<ulong, ulong>> GetEdgesAsList(IEnumerable<Edge> edges)
+        internal bool SaveGraph()
         {
-            List<Tuple<ulong, ulong>> resultEdgesList = new List<Tuple<ulong,ulong>>();
-            foreach (Edge e in edges) {
-                resultEdgesList.Add(Tuple.Create<ulong, ulong>(e.First.vertexID, e.Second.vertexID));
-            }
-            return resultEdgesList;
+            return saveCommand.Execute();
         }
 
-        private static List<Tuple<System.Windows.Point, ulong>> GetVericesToCircleMapAsList(Dictionary<Circle, Vertex> verticesMap)
+        internal bool LoadGraph()
         {
-            List<Tuple<System.Windows.Point, ulong>> verticesToSerialize = new List<Tuple<System.Windows.Point, ulong>>();
-            foreach (Circle circle in verticesMap.Keys)
-            {
-                verticesToSerialize.Add(Tuple.Create<System.Windows.Point, ulong>(circle.Position, verticesMap[circle].vertexID));
-            }
-
-            return verticesToSerialize;
+            return loadCommand.Execute();
         }
     }
 }

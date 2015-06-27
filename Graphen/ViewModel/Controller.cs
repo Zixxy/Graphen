@@ -30,12 +30,16 @@ namespace Graphen.ViewModel
 
         public void SaveGraph(String fileName)
         {
-            //Saver.SaveGraph(graph, vertices, fileName);
+            SaveCommand saveCom = new SaveCommand(graph, vertices, fileName);
+            LoadCommand loadCom = new LoadCommand(fileName, this, null);
+            new Saver(saveCom, loadCom).SaveGraph();
         }
 
         public void LoadGraph(String fileName, MainWindow view)
         {
-            //Saver.LoadGraph(fileName, this, view);
+            SaveCommand saveCom = new SaveCommand(null, null, null);
+            LoadCommand loadCom = new LoadCommand(fileName, this, view);
+            new Saver(saveCom, loadCom).LoadGraph();
         }
 
         internal void RecounstructGraphFromFile(Tuple<int, int> verticesAndEgesAmount, List<Tuple<ulong, ulong>> edgesAsList, List<Tuple<System.Windows.Point, ulong>> verticesMap, MainWindow view)  
