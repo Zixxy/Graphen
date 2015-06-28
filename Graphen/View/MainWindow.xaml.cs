@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Threading;
+using Graphen.View.State;
 
 namespace Graphen
 {
@@ -22,20 +23,17 @@ namespace Graphen
     public partial class MainWindow : Window
     {
         private Controller controller;
-        
-        private Circle firstCircle;
-        private Circle secondCircle;
+        private DrawingState state;
+        private DrawTool tool;
 
         const double scaleRate = 1.1;
-        public enum DrawingTool 
-        {
-            DRAW_VERTEX, REMOVE_VERTEX, DRAW_EDGE, REMOVE_EDGE, SET_COLOR, VALIDATE
-        }
-        public DrawingTool CurrentTool { get; set; }
+
+        public DrawingState CurrentTool { get; set; }
 
         public MainWindow()
         {
             controller = new Controller();
+            state = new DrawingState(controller, paintSurface, this);
             InitializeComponent();
         }
         public void Window_Loaded(object sender, RoutedEventArgs e)
@@ -59,22 +57,22 @@ namespace Graphen
         }
         private void PickCircleTool(object sender, RoutedEventArgs e)
         {
-            CurrentTool = DrawingTool.DRAW_VERTEX;
+            tool = state.reset(DrawingState.Tool.DRAW_VERTEX);
         }
 
         private void PickEdgeTool(object sender, RoutedEventArgs e)
         {
-            CurrentTool = DrawingTool.DRAW_EDGE;
+            tool = state.reset(DrawingState.Tool.DRAW_EDGE);
         }
 
         private void PickRemoveVertexTool(object sender, RoutedEventArgs e)
         {
-            CurrentTool = DrawingTool.REMOVE_VERTEX;
+            tool = state.reset(DrawingState.Tool.REMOVE_VERTEX);
         }
 
         private void PickRemoveEdgeTool(object sender, RoutedEventArgs e)
         {
-            CurrentTool = DrawingTool.REMOVE_EDGE;
+            tool = state.reset(DrawingState.Tool.REMOVE_EDGE);
         }
 
         private void ArrangeVertices(object sender, RoutedEventArgs e)
@@ -128,118 +126,8 @@ namespace Graphen
         private void DrawElement(object sender, MouseButtonEventArgs e)
         {
             System.Windows.Point position = Mouse.GetPosition(paintSurface);// System.Windows.Forms.Control.MousePosition;
-            switch (CurrentTool)
-            {
-                case DrawingTool.DRAW_VERTEX:
-                    {
-                        CreateVertex(position);
-                        break;
-                    }
-                case DrawingTool.REMOVE_VERTEX:
-                    {
-                        RemoveVertex(position);
-                        break;
-                    }
-                case DrawingTool.DRAW_EDGE:
-                    {
-                        CreateEdge();
-                        break;
-                    }
-                case DrawingTool.REMOVE_EDGE:
-                    {
-                        break;
-                    }
-                case DrawingTool.VALIDATE:
-                    {
-                        throw new NotImplementedException();
-                       // break;
-                    }
-                case DrawingTool.SET_COLOR:
-                    {
-                        throw new NotImplementedException();
-                       // break;
-                    }
-                default:
-                    throw new ArgumentException("Invalid DrawTool:" + CurrentTool + "picked"); 
-
-            }
+            tool.DrawElement(sender, e, Mouse.GetPosition(paintSurface));
         }
-
-        private Circle CreateVertex(System.Windows.Point position)
-        {
-            Circle circle = new Circle(position);
-            controller.AddVertex(circle);
-            Ellipse ellipse = circle.ellipse;
-
-            ellipse.MouseDown += (object a, MouseButtonEventArgs b) =>
-            {
-                if (CurrentTool == DrawingTool.DRAW_EDGE) 
-                {
-                    if (firstCircle == null)
-                        firstCircle = circle;
-                    else if (secondCircle != null)
-                        firstCircle = circle;
-                    else
-                        secondCircle = circle;
-                }
-                else
-                {
-                    firstCircle = secondCircle = null;
-                }
-            };
-            //TODO - choose hover effect, do when styling
-            ellipse.MouseEnter += (object o, MouseEventArgs e) =>
-                {
-                    if (CurrentTool == DrawingTool.DRAW_EDGE)
-                    {
-                        ellipse.Fill = new SolidColorBrush(Color.FromRgb(0, 0, 0));
-                    }
-                };
-            ellipse.MouseLeave += (object o, MouseEventArgs e) =>
-            {   
-                ellipse.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 150, 0));
-            };
-
-            paintSurface.Children.Add(ellipse);
-            return circle;
-        }
-
-        private void CreateEdge()
-        {
-            if (firstCircle == null || secondCircle == null)
-                return;
-            if (!controller.ContainsEdge(firstCircle, secondCircle) && 
-                firstCircle != secondCircle)
-            {
-                Line line = new Line()
-                {
-                    X1 = firstCircle.Position.X,
-                    Y1 = firstCircle.Position.Y,
-                    X2 = secondCircle.Position.X,
-                    Y2 = secondCircle.Position.Y
-                };
-                controller.AddEdge(line, firstCircle, secondCircle);
-                line.Stroke = System.Windows.Media.Brushes.LightSteelBlue;
-                line.StrokeThickness = 2;
-                paintSurface.Children.Add(line);
-
-                line.MouseDown += (object a, MouseButtonEventArgs b) =>
-                {
-                    if (CurrentTool == DrawingTool.REMOVE_EDGE)
-                    {
-                        controller.RemoveEdge(a as System.Windows.Shapes.Line, this);
-                    }
-                };
-            }
-            firstCircle = null;
-            secondCircle = null;
-        }
-
-        private void RemoveVertex(System.Windows.Point position)
-        {
-            controller.RemoveVertex(position, this);
-        }
-
         public void RemoveElementFromSurface(System.Windows.UIElement element)
         {
             paintSurface.Children.Remove(element);
@@ -250,7 +138,7 @@ namespace Graphen
             Dictionary<ulong, Circle> verticesToCircle = new Dictionary<ulong, Circle>();
             foreach (Tuple<System.Windows.Point, ulong> circleToVertex in verticesMap)
             {
-                Circle circle = CreateVertex(circleToVertex.Item1);
+                Circle circle = VertexDrawer.CreateVertex(circleToVertex.Item1, state);
                 verticesToCircle.Add(circleToVertex.Item2, circle);
             }
             return verticesToCircle;
@@ -258,9 +146,9 @@ namespace Graphen
 
         public void RestoreEdge(Circle one, Circle two)
         {
-            firstCircle = one;
-            secondCircle = two;
-            CreateEdge();
+            state.firstCircle = one;
+            state.secondCircle = two;
+            LineDrawer.CreateEdge(state);
         }
     }
 }
